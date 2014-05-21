@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Zero People" 
+      singularName="Zero People"
+      raceDescription="Zero People were accidentally created one night by a group of computer science students trying to create a simple database query.  It gained sentience through luck, improbability, and a dash of spilled tea, and not much else need to be said except that they hate all living forms."
+      neutralPortrait="ZeroPeopleNeutralPortrait" 
+      happyPortrait="ZeroPeopleHappyPortrait" 
+      angryPortrait="ZeroPeopleAngryPortrait" 
+      thumbnail="ZeroPeopleThumbnail"
+      city="ZeroPeopleCity"
+      landingShip="ZeroPeopleLandingShip"
+      groundTroop="ZeroPeopleGroundTroop"
+      dyingTroop="ZeroPeopleDyingTroop"
+      fleetIcon="ZeroPeopleFleetIcon"
+      transportIcon="ZeroPeopleTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="ZeroPeopleTinyShip1" />
+      <Body sprite="ZeroPeopleTinyShip2" />
+      <Body sprite="ZeroPeopleTinyShip3" />
+      <Body sprite="ZeroPeopleTinyShip4" />
+      <Body sprite="ZeroPeopleTinyShip5" />
+      <Body sprite="ZeroPeopleTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="ZeroPeopleSmallShip1" />
+      <Body sprite="ZeroPeopleSmallShip2" />
+      <Body sprite="ZeroPeopleSmallShip3" />
+      <Body sprite="ZeroPeopleSmallShip4" />
+      <Body sprite="ZeroPeopleSmallShip5" />
+      <Body sprite="ZeroPeopleSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="ZeroPeopleMediumShip1" />
+      <Body sprite="ZeroPeopleMediumShip2" />
+      <Body sprite="ZeroPeopleMediumShip3" />
+      <Body sprite="ZeroPeopleMediumShip4" />
+      <Body sprite="ZeroPeopleMediumShip5" />
+      <Body sprite="ZeroPeopleMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="ZeroPeopleLargeShip1" />
+      <Body sprite="ZeroPeopleLargeShip2" />
+      <Body sprite="ZeroPeopleLargeShip3" />
+      <Body sprite="ZeroPeopleLargeShip4" />
+      <Body sprite="ZeroPeopleLargeShip5" />
+      <Body sprite="ZeroPeopleLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

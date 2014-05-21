@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Nurds" 
+      singularName="Nurd"
+      raceDescription="The race where the word &quot;Nerd&quot; was derived from.  At first glance, they look like humans, except their heads are three times bigger, they have multiple randomly-placed pockets lined with pocket protectors, and have four literal eyes.  Nicknames includes four-eyes, dorks, and bookworms."
+      neutralPortrait="NurdNeutralPortrait" 
+      happyPortrait="NurdHappyPortrait" 
+      angryPortrait="NurdAngryPortrait" 
+      thumbnail="NurdThumbnail"
+      city="NurdCity"
+      landingShip="NurdLandingShip"
+      groundTroop="NurdGroundTroop"
+      dyingTroop="NurdDyingTroop"
+      fleetIcon="NurdFleetIcon"
+      transportIcon="NurdTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="NurdTinyShip1" />
+      <Body sprite="NurdTinyShip2" />
+      <Body sprite="NurdTinyShip3" />
+      <Body sprite="NurdTinyShip4" />
+      <Body sprite="NurdTinyShip5" />
+      <Body sprite="NurdTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="NurdSmallShip1" />
+      <Body sprite="NurdSmallShip2" />
+      <Body sprite="NurdSmallShip3" />
+      <Body sprite="NurdSmallShip4" />
+      <Body sprite="NurdSmallShip5" />
+      <Body sprite="NurdSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="NurdMediumShip1" />
+      <Body sprite="NurdMediumShip2" />
+      <Body sprite="NurdMediumShip3" />
+      <Body sprite="NurdMediumShip4" />
+      <Body sprite="NurdMediumShip5" />
+      <Body sprite="NurdMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="NurdLargeShip1" />
+      <Body sprite="NurdLargeShip2" />
+      <Body sprite="NurdLargeShip3" />
+      <Body sprite="NurdLargeShip4" />
+      <Body sprite="NurdLargeShip5" />
+      <Body sprite="NurdLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

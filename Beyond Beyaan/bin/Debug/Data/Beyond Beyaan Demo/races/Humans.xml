@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Humans" 
+      singularName="Human"
+      raceDescription="Humans, the reason why the word humanoid was coined, their ego is surpassed only by their desire for power.  Their Encyclopedia Galactica is remarkable in that it contains nearly everything, except for their origin."
+      neutralPortrait="HumanNeutralPortrait" 
+      happyPortrait="HumanHappyPortrait" 
+      angryPortrait="HumanAngryPortrait" 
+      thumbnail="HumanThumbnail"
+      city="HumanCity"
+      landingShip="HumanLandingShip"
+      groundTroop="HumanGroundTroop"
+      dyingTroop="HumanDyingTroop"
+      fleetIcon="HumanFleetIcon"
+      transportIcon="HumanTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="HumanTinyShip1" />
+      <Body sprite="HumanTinyShip2" />
+      <Body sprite="HumanTinyShip3" />
+      <Body sprite="HumanTinyShip4" />
+      <Body sprite="HumanTinyShip5" />
+      <Body sprite="HumanTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="HumanSmallShip1" />
+      <Body sprite="HumanSmallShip2" />
+      <Body sprite="HumanSmallShip3" />
+      <Body sprite="HumanSmallShip4" />
+      <Body sprite="HumanSmallShip5" />
+      <Body sprite="HumanSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="HumanMediumShip1" />
+      <Body sprite="HumanMediumShip2" />
+      <Body sprite="HumanMediumShip3" />
+      <Body sprite="HumanMediumShip4" />
+      <Body sprite="HumanMediumShip5" />
+      <Body sprite="HumanMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="HumanLargeShip1" />
+      <Body sprite="HumanLargeShip2" />
+      <Body sprite="HumanLargeShip3" />
+      <Body sprite="HumanLargeShip4" />
+      <Body sprite="HumanLargeShip5" />
+      <Body sprite="HumanLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

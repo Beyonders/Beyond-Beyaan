@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Araneas" 
+      singularName="Aranea"
+      raceDescription="Every arachnophobe's bane, those huge spiders are actually peaceful, except when they're hungry.  Due to their huge size, they're almost always hungry, so they're misunderstood as being aggressive."
+      neutralPortrait="AraneaNeutralPortrait" 
+      happyPortrait="AraneaHappyPortrait" 
+      angryPortrait="AraneaAngryPortrait" 
+      thumbnail="AraneaThumbnail"
+      city="AraneaCity"
+      landingShip="AraneaLandingShip"
+      groundTroop="AraneaGroundTroop"
+      dyingTroop="AraneaDyingTroop"
+      fleetIcon="AraneaFleetIcon"
+      transportIcon="AraneaTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="AraneaTinyShip1" />
+      <Body sprite="AraneaTinyShip2" />
+      <Body sprite="AraneaTinyShip3" />
+      <Body sprite="AraneaTinyShip4" />
+      <Body sprite="AraneaTinyShip5" />
+      <Body sprite="AraneaTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="AraneaSmallShip1" />
+      <Body sprite="AraneaSmallShip2" />
+      <Body sprite="AraneaSmallShip3" />
+      <Body sprite="AraneaSmallShip4" />
+      <Body sprite="AraneaSmallShip5" />
+      <Body sprite="AraneaSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="AraneaMediumShip1" />
+      <Body sprite="AraneaMediumShip2" />
+      <Body sprite="AraneaMediumShip3" />
+      <Body sprite="AraneaMediumShip4" />
+      <Body sprite="AraneaMediumShip5" />
+      <Body sprite="AraneaMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="AraneaLargeShip1" />
+      <Body sprite="AraneaLargeShip2" />
+      <Body sprite="AraneaLargeShip3" />
+      <Body sprite="AraneaLargeShip4" />
+      <Body sprite="AraneaLargeShip5" />
+      <Body sprite="AraneaLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

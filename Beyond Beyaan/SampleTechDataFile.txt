@@ -1,0 +1,36 @@
+<Technologies>
+	<Technology name="Laser" field="Energy">
+		<Beam name="Cannon" damage="8" accuracy="90" range="20" space="10" sprite="beam" RP="300" />
+	</Technology>
+	<Technology name="Plasma" field="Energy">
+		<Requirements>
+			<Requirement>Laser</Requirement>
+		</Requirements>
+		<Beam name="Cannon" damage="20" accuracy="85" range="15" sprite="trailingParticle" height="4" width="50" RP="10,000" />
+		<Torpedo name="Torpedo" damage="100" range="30" sprite="trailingParticle" height="50" width="50" RP="8,000" />
+	</Technology>
+	<Technology name="Rail" field="Physics" RP="500">
+		<Projectile name="Gun" damage="10" accuracy="60" range="-1" sprite="particle" height="4" width="4" RP="150" />
+	</Technology>
+	<Technology name="Small" field="Electronics">
+		<BeamMount name="Mount" damageMultiplier="0.8" accuracyMultiplier="1.1" rangeMultiplier="0.75" spaceMultiplier="0.9" />
+		<ProjectileMount name="Mount" damageMultiplier="0.9" accuracyMultiplier="1.2" rangeMultiplier="1" spaceMultiplier="0.9" />
+	</Technology>
+	<Technology name="Duralloy" field="Metallurgy">
+		<Armor name="Armor" hitPointMultiplier="0.2" spacePercentage="17" beamResistance="75" ... RP="250" />
+	</Technology>
+	<Technology name="Anti-Matter" field="Energy">
+		<Beam name="Cannon" ... />
+		<Projectile name="Pellets" ... />
+		<Torpedo name="Torpedo" ... />
+		<Engine name="Engine" ... />
+	</Technology>
+	<Technology name="AccuraMax" field="Electronics">
+		<ComputerModifier name="Plug-in" accuracyMultiplier="1.5" spaceMultiplier="1.25" costMultiplier="1.75" />
+	</Technology>
+	<Technology name="Phasing" field="Energy">
+		<ShieldModifier name="Field" beamResistanceMultiplier="1.25" spaceMultiplier="2.0">
+			<SpecialMod name="Cloak" value="100" />
+		</ShieldModifier>
+	</Technology>
+</Technologies>

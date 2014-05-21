@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Salix Cybornia" 
+      singularName="Salix Cybornia"
+      raceDescription="A long long time ago, they were tasked with protecting the environment, especially forests. After disposing of a bad wizard that was polluting their lands, and finding the females of their species, they proceeded to flourish. Eventually they decided that the best way to maintain the environment was to get rid of all parasites, which includes small people with furry feet, so they fought a war against the other inhabitats. Eventually they won, with the aid of a time machine, and now they've turned their eyes (or the equivalent thereof) to the stars. They will make every planet a paradise, or die trying!"
+      neutralPortrait="SalixCyborniaNeutralPortrait" 
+      happyPortrait="SalixCyborniaHappyPortrait" 
+      angryPortrait="SalixCyborniaAngryPortrait" 
+      thumbnail="SalixCyborniaThumbnail"
+      city="SalixCyborniaCity"
+      landingShip="SalixCyborniaLandingShip"
+      groundTroop="SalixCyborniaGroundTroop"
+      dyingTroop="SalixCyborniaDyingTroop"
+      fleetIcon="SalixCyborniaFleetIcon"
+      transportIcon="SalixCyborniaTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="SalixCyborniaTinyShip1" />
+      <Body sprite="SalixCyborniaTinyShip2" />
+      <Body sprite="SalixCyborniaTinyShip3" />
+      <Body sprite="SalixCyborniaTinyShip4" />
+      <Body sprite="SalixCyborniaTinyShip5" />
+      <Body sprite="SalixCyborniaTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="SalixCyborniaSmallShip1" />
+      <Body sprite="SalixCyborniaSmallShip2" />
+      <Body sprite="SalixCyborniaSmallShip3" />
+      <Body sprite="SalixCyborniaSmallShip4" />
+      <Body sprite="SalixCyborniaSmallShip5" />
+      <Body sprite="SalixCyborniaSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="SalixCyborniaMediumShip1" />
+      <Body sprite="SalixCyborniaMediumShip2" />
+      <Body sprite="SalixCyborniaMediumShip3" />
+      <Body sprite="SalixCyborniaMediumShip4" />
+      <Body sprite="SalixCyborniaMediumShip5" />
+      <Body sprite="SalixCyborniaMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="SalixCyborniaLargeShip1" />
+      <Body sprite="SalixCyborniaLargeShip2" />
+      <Body sprite="SalixCyborniaLargeShip3" />
+      <Body sprite="SalixCyborniaLargeShip4" />
+      <Body sprite="SalixCyborniaLargeShip5" />
+      <Body sprite="SalixCyborniaLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

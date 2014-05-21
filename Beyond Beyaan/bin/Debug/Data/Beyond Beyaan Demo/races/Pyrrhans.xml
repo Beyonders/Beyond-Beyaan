@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Pyrrhans" 
+      singularName="Pyrrhan"
+      raceDescription="Those parrots somehow managed to gain enough intelligence to build starships, but yet they still crave crackers and name their children Polly.  They also seek vengeance against pirates for abusing them for generations."
+      neutralPortrait="PyrrhanNeutralPortrait" 
+      happyPortrait="PyrrhanHappyPortrait" 
+      angryPortrait="PyrrhanAngryPortrait" 
+      thumbnail="PyrrhanThumbnail"
+      city="PyrrhanCity"
+      landingShip="PyrrhanLandingShip"
+      groundTroop="PyrrhanGroundTroop"
+      dyingTroop="PyrrhanDyingTroop"
+      fleetIcon="PyrrhanFleetIcon"
+      transportIcon="PyrrhanTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="PyrrhanTinyShip1" />
+      <Body sprite="PyrrhanTinyShip2" />
+      <Body sprite="PyrrhanTinyShip3" />
+      <Body sprite="PyrrhanTinyShip4" />
+      <Body sprite="PyrrhanTinyShip5" />
+      <Body sprite="PyrrhanTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="PyrrhanSmallShip1" />
+      <Body sprite="PyrrhanSmallShip2" />
+      <Body sprite="PyrrhanSmallShip3" />
+      <Body sprite="PyrrhanSmallShip4" />
+      <Body sprite="PyrrhanSmallShip5" />
+      <Body sprite="PyrrhanSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="PyrrhanMediumShip1" />
+      <Body sprite="PyrrhanMediumShip2" />
+      <Body sprite="PyrrhanMediumShip3" />
+      <Body sprite="PyrrhanMediumShip4" />
+      <Body sprite="PyrrhanMediumShip5" />
+      <Body sprite="PyrrhanMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="PyrrhanLargeShip1" />
+      <Body sprite="PyrrhanLargeShip2" />
+      <Body sprite="PyrrhanLargeShip3" />
+      <Body sprite="PyrrhanLargeShip4" />
+      <Body sprite="PyrrhanLargeShip5" />
+      <Body sprite="PyrrhanLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

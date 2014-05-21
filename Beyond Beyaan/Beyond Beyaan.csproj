@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9A61D7E9-675E-4610-8EF0-27871C5DE27B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Beyond_Beyaan</RootNamespace>
+    <AssemblyName>Beyond Beyaan</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gorgon, Version=1.1.3638.20767, Culture=neutral, PublicKeyToken=c001d94e9acbbee7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Gorgon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GorgonFramework, Version=1.1.3638.20767, Culture=neutral, PublicKeyToken=c001d94e9acbbee7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\GorgonFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GorgonInput">
+      <HintPath>.\GorgonInput.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BeyondBeyaan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BeyondBeyaan.Designer.cs">
+      <DependentUpon>BeyondBeyaan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration.designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data Managers\AIManager.cs" />
+    <Compile Include="Data Managers\ContactManager.cs" />
+    <Compile Include="Data Managers\FontManager.cs" />
+    <Compile Include="Data Managers\MasterTechnologyManager.cs" />
+    <Compile Include="Data Managers\RaceManager.cs" />
+    <Compile Include="Data Managers\SitRepManager.cs" />
+    <Compile Include="Data Managers\SpriteManager.cs" />
+    <Compile Include="Data Modules\AI.cs" />
+    <Compile Include="Data Modules\BBSprite.cs" />
+    <Compile Include="Data Modules\Camera.cs" />
+    <Compile Include="Data Modules\CombatItems.cs" />
+    <Compile Include="Data Modules\Contact.cs" />
+    <Compile Include="Data Modules\Empire.cs" />
+    <Compile Include="Data Managers\EmpireManager.cs" />
+    <Compile Include="Data Modules\Fleet.cs" />
+    <Compile Include="Data Modules\FleetGroup.cs" />
+    <Compile Include="Data Managers\FleetManager.cs" />
+    <Compile Include="Data Modules\Galaxy.cs" />
+    <Compile Include="Data Modules\Race.cs" />
+    <Compile Include="Data Modules\SitRepItem.cs" />
+    <Compile Include="GameMain.cs" />
+    <Compile Include="Data Managers\InterfaceManagement.cs" />
+    <Compile Include="Screens\ColonizeScreen.cs" />
+    <Compile Include="Screens\EquipmentSelection.cs" />
+    <Compile Include="Screens\FleetSpecsWindow.cs" />
+    <Compile Include="Screens\PlanetsView.cs" />
+    <Compile Include="Screens\ResearchPrompt.cs" />
+    <Compile Include="Screens\ShipDesignScreen.cs" />
+    <Compile Include="Screens\SystemInfoWindow.cs" />
+    <Compile Include="Screens\FleetView.cs" />
+    <Compile Include="Screens\RaceSelection.cs" />
+    <Compile Include="Screens\SituationReport.cs" />
+    <Compile Include="Screens\SystemView.cs" />
+    <Compile Include="Screens\WindowInterface.cs" />
+    <Compile Include="Utility\GameConfiguration.cs" />
+    <Compile Include="Utility\NameGenerator.cs" />
+    <Compile Include="Data Modules\Planet.cs" />
+    <Compile Include="Data Managers\PlanetManager.cs" />
+    <Compile Include="Screens\DiplomacyScreen.cs" />
+    <Compile Include="Screens\FleetListScreen.cs" />
+    <Compile Include="Screens\GalaxyScreen.cs" />
+    <Compile Include="Screens\InGameMenu.cs" />
+    <Compile Include="Screens\MainGameMenu.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\ProcessingTurnScreen.cs" />
+    <Compile Include="Screens\ResearchScreen.cs" />
+    <Compile Include="Screens\ScreenInterface.cs" />
+    <Compile Include="Screens\NewGame.cs" />
+    <Compile Include="Screens\SpaceCombat.cs" />
+    <Compile Include="Data Modules\Ship.cs" />
+    <Compile Include="Data Modules\StarSystem.cs" />
+    <Compile Include="Screens\TaskBar.cs" />
+    <Compile Include="Data Modules\Technology.cs" />
+    <Compile Include="Data Managers\TechnologyManager.cs" />
+    <Compile Include="Utility\Utility.cs" />
+    <EmbeddedResource Include="BeyondBeyaan.resx">
+      <DependentUpon>BeyondBeyaan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

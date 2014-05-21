@@ -1,0 +1,19 @@
+This file is to clarify the licensing of various aspects of Beyond Beyaan game.
+
+The artwork/sounds are NOT available for use other than with Beyond Beyaan.  However, if you want to license those artwork, please contact me and we'll work out something.
+
+The fonts found in \Beyond Beyaan\bin\Debug\Data\Beyond Beyaan Demo\Fonts\ are NOT available for commercial use unless you purchase the license for them.  To purchase, go here: http://thefontry.com/jlsdatagothic
+
+The Source code as found in https://code.google.com/p/beyond-beyaan/ is available as open source.  Basically the gist of licensing is like this:
+
+If you want to create a game that you plan to release for free, feel free to use my source code.  However, if others derive off of your game and uses part or all of my source code, and intends to sell their product, they need to contact me prior to releasing to work out arraignments.
+
+If you want to create a game using part or all of my game's source code, and release it as a commercial product in that people pay for it, you will need to contact me to work out licensing prices and such.  I'm a very reasonable person, but it's not reasonable to rip off my work for your profit.
+
+If you want to create a mod that you plan to distribute for free, those usually are fine, EXCEPT when you include the base game's artwork, font, and/or sound assets.  In those cases, release only the data files (.xml, .cs) files that uses the base game's assets.  If you have questions about how to do this, contact me.
+
+If you want to create a mod that relies on the game's code, but you want to charge for it (i.e. total conversion, etc), contact me.  If those mods uses some or all of base game assets, you will need to work out arraignments with me concerning those as well.
+
+The goal of Beyond Beyaan is to enable people to create and finish their dream 4X projects.  I'd be happy to assist you and work out any licensing issues with you.  If you want to include your works as part of "Official Mods", let me know and I'll review it and work out an licensing agreement with you, i.e. releasing your mod for sale via the official game site.
+
+If you have any questions, contact me at zeraan55@gmail.com, thanks.

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Space Hamsters" 
+      singularName="Space Hamster"
+      raceDescription="Space Hamsters are hamsters in space.  Seriously.  One day they decided that spinning their little wheels aren't satisfactory enough, they want bigger wheels.  Frantic attempts to communicate with their owners failed, so they've decided to take matters in their own paws!"
+      neutralPortrait="SpaceHamsterNeutralPortrait" 
+      happyPortrait="SpaceHamsterHappyPortrait" 
+      angryPortrait="SpaceHamsterAngryPortrait" 
+      thumbnail="SpaceHamsterThumbnail"
+      city="SpaceHamsterCity"
+      landingShip="SpaceHamsterLandingShip"
+      groundTroop="SpaceHamsterGroundTroop"
+      dyingTroop="SpaceHamsterDyingTroop"
+      fleetIcon="SpaceHamsterFleetIcon"
+      transportIcon="SpaceHamsterTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="SpaceHamsterTinyShip1" />
+      <Body sprite="SpaceHamsterTinyShip2" />
+      <Body sprite="SpaceHamsterTinyShip3" />
+      <Body sprite="SpaceHamsterTinyShip4" />
+      <Body sprite="SpaceHamsterTinyShip5" />
+      <Body sprite="SpaceHamsterTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="SpaceHamsterSmallShip1" />
+      <Body sprite="SpaceHamsterSmallShip2" />
+      <Body sprite="SpaceHamsterSmallShip3" />
+      <Body sprite="SpaceHamsterSmallShip4" />
+      <Body sprite="SpaceHamsterSmallShip5" />
+      <Body sprite="SpaceHamsterSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="SpaceHamsterMediumShip1" />
+      <Body sprite="SpaceHamsterMediumShip2" />
+      <Body sprite="SpaceHamsterMediumShip3" />
+      <Body sprite="SpaceHamsterMediumShip4" />
+      <Body sprite="SpaceHamsterMediumShip5" />
+      <Body sprite="SpaceHamsterMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="SpaceHamsterLargeShip1" />
+      <Body sprite="SpaceHamsterLargeShip2" />
+      <Body sprite="SpaceHamsterLargeShip3" />
+      <Body sprite="SpaceHamsterLargeShip4" />
+      <Body sprite="SpaceHamsterLargeShip5" />
+      <Body sprite="SpaceHamsterLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Zygobies" 
+      singularName="Zygobie"
+      raceDescription="Zygobies are spores that has taken over various hosts, often without hosts noticing it, as their personalities and thinking are gradually altered. They are excellent spies for this very reason, and are heavily mistrusted, because you never know if some of zygos has rubbed off on you. Their society is a pure meritocracy, with ranking based directly on the host's brain mass as their intelligence is limited by the size of the host's brain. Despite their name connotations, they are very cunning and clever, not to be trusted."
+      neutralPortrait="ZygobieNeutralPortrait" 
+      happyPortrait="ZygobieHappyPortrait" 
+      angryPortrait="ZygobieAngryPortrait" 
+      thumbnail="ZygobieThumbnail"
+      city="ZygobieCity"
+      landingShip="ZygobieLandingShip"
+      groundTroop="ZygobieGroundTroop"
+      dyingTroop="ZygobieDyingTroop"
+      fleetIcon="ZygobieFleetIcon"
+      transportIcon="ZygobieTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="ZygobieTinyShip1" />
+      <Body sprite="ZygobieTinyShip2" />
+      <Body sprite="ZygobieTinyShip3" />
+      <Body sprite="ZygobieTinyShip4" />
+      <Body sprite="ZygobieTinyShip5" />
+      <Body sprite="ZygobieTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="ZygobieSmallShip1" />
+      <Body sprite="ZygobieSmallShip2" />
+      <Body sprite="ZygobieSmallShip3" />
+      <Body sprite="ZygobieSmallShip4" />
+      <Body sprite="ZygobieSmallShip5" />
+      <Body sprite="ZygobieSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="ZygobieMediumShip1" />
+      <Body sprite="ZygobieMediumShip2" />
+      <Body sprite="ZygobieMediumShip3" />
+      <Body sprite="ZygobieMediumShip4" />
+      <Body sprite="ZygobieMediumShip5" />
+      <Body sprite="ZygobieMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="ZygobieLargeShip1" />
+      <Body sprite="ZygobieLargeShip2" />
+      <Body sprite="ZygobieLargeShip3" />
+      <Body sprite="ZygobieLargeShip4" />
+      <Body sprite="ZygobieLargeShip5" />
+      <Body sprite="ZygobieLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

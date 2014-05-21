@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Velociraptors" 
+      singularName="Velociraptor"
+      raceDescription="Velociraptors were originally thought to be extinct, but they left Earth after causing a world-wide extinction of all animals bigger than ferrets.  They are the bane of professional human hunters, making them look like kittens chasing a laser."
+      neutralPortrait="VelociraptorNeutralPortrait" 
+      happyPortrait="VelociraptorHappyPortrait" 
+      angryPortrait="VelociraptorAngryPortrait" 
+      thumbnail="VelociraptorThumbnail"
+      city="VelociraptorCity"
+      landingShip="VelociraptorLandingShip"
+      groundTroop="VelociraptorGroundTroop"
+      dyingTroop="VelociraptorDyingTroop"
+      fleetIcon="VelociraptorFleetIcon"
+      transportIcon="VelociraptorTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="VelociraptorTinyShip1" />
+      <Body sprite="VelociraptorTinyShip2" />
+      <Body sprite="VelociraptorTinyShip3" />
+      <Body sprite="VelociraptorTinyShip4" />
+      <Body sprite="VelociraptorTinyShip5" />
+      <Body sprite="VelociraptorTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="VelociraptorSmallShip1" />
+      <Body sprite="VelociraptorSmallShip2" />
+      <Body sprite="VelociraptorSmallShip3" />
+      <Body sprite="VelociraptorSmallShip4" />
+      <Body sprite="VelociraptorSmallShip5" />
+      <Body sprite="VelociraptorSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="VelociraptorMediumShip1" />
+      <Body sprite="VelociraptorMediumShip2" />
+      <Body sprite="VelociraptorMediumShip3" />
+      <Body sprite="VelociraptorMediumShip4" />
+      <Body sprite="VelociraptorMediumShip5" />
+      <Body sprite="VelociraptorMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="VelociraptorLargeShip1" />
+      <Body sprite="VelociraptorLargeShip2" />
+      <Body sprite="VelociraptorLargeShip3" />
+      <Body sprite="VelociraptorLargeShip4" />
+      <Body sprite="VelociraptorLargeShip5" />
+      <Body sprite="VelociraptorLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>

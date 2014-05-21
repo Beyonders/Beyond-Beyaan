@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Race name="Morions" 
+      singularName="Morion"
+      raceDescription="When they were first discovered, scientists incorrectly labeled them a category of Morion Quartz based on their physical attributes before realizing that they're sentient rocks. However, just like many other incorrectly labeled races, the name stuck. Their hardiness and lifespans are legendary. Instead of building things, they grow everything, and they only have one type of region that produces everything they need. Zero People and Morions hate each other, each claiming to be the true inorganic lifeforms."
+      neutralPortrait="MorionNeutralPortrait" 
+      happyPortrait="MorionHappyPortrait" 
+      angryPortrait="MorionAngryPortrait" 
+      thumbnail="MorionThumbnail"
+      city="MorionCity"
+      landingShip="MorionLandingShip"
+      groundTroop="MorionGroundTroop"
+      dyingTroop="MorionDyingTroop"
+      fleetIcon="MorionFleetIcon"
+      transportIcon="MorionTransportIcon"
+      >
+  <ShipTypes>
+    <Ship name="Small" space="40" width="32" height="32" >
+      <Body sprite="MorionTinyShip1" />
+      <Body sprite="MorionTinyShip2" />
+      <Body sprite="MorionTinyShip3" />
+      <Body sprite="MorionTinyShip4" />
+      <Body sprite="MorionTinyShip5" />
+      <Body sprite="MorionTinyShip6" />
+    </Ship>
+    <Ship name="Medium" space="204" width="64" height="64" >
+      <Body sprite="MorionSmallShip1" />
+      <Body sprite="MorionSmallShip2" />
+      <Body sprite="MorionSmallShip3" />
+      <Body sprite="MorionSmallShip4" />
+      <Body sprite="MorionSmallShip5" />
+      <Body sprite="MorionSmallShip6" />
+    </Ship>
+    <Ship name="Large" space="1020" width="96" height="96" >
+      <Body sprite="MorionMediumShip1" />
+      <Body sprite="MorionMediumShip2" />
+      <Body sprite="MorionMediumShip3" />
+      <Body sprite="MorionMediumShip4" />
+      <Body sprite="MorionMediumShip5" />
+      <Body sprite="MorionMediumShip6" />
+    </Ship>
+    <Ship name="Huge" space="5100" width="128" height="128" >
+      <Body sprite="MorionLargeShip1" />
+      <Body sprite="MorionLargeShip2" />
+      <Body sprite="MorionLargeShip3" />
+      <Body sprite="MorionLargeShip4" />
+      <Body sprite="MorionLargeShip5" />
+      <Body sprite="MorionLargeShip6" />
+    </Ship>
+  </ShipTypes>
+</Race>
