@@ -17,7 +17,11 @@ namespace Beyond_Beyaan.Screens
 		private BBStretchableImage[] _specialsBackgrounds;
 
 		private BBButton[] _scrapButtons;
-		//private BBSprite _shipSprites;
+		private BBSprite _shipSprite;
+		private bool _previewVisible;
+		private float[] _empireColor;
+		private BBStretchableImage _shipBackground;
+		private Point _shipPoint;
 
 		private BBLabel[] _shipNameLabels;
 
@@ -42,19 +46,30 @@ namespace Beyond_Beyaan.Screens
 		private BBLabel[] _combatSpeedLabels;
 		private BBLabel[] _combatSpeedValueLabels;
 
-		//private BBLabel[][] _weaponLabels;
-		//private BBLabel[][] _specialLabels;
+		private BBLabel[][] _weaponLabels;
+		private BBLabel[][] _specialLabels;
 
 		private BBLabel[] _costLabels;
 		private BBLabel[] _costValueLabels;
 
+		private BBLabel[] _amountLabels;
+		private BBLabel[] _amountValueLabels;
+
 		private int _maxVisible;
+		private int _x;
+		private int _y;
+		private FleetManager _fleetManager;
 
 		public bool Initialize(GameMain gameMain, out string reason)
 		{
-			int x = (gameMain.ScreenWidth / 2) - 350;
-			int y = (gameMain.ScreenHeight / 2) - 300;
-			if (!Initialize((gameMain.ScreenWidth / 2) - 370, (gameMain.ScreenHeight / 2) - 320, 740, 640, StretchableImageType.MediumBorder, gameMain, false, gameMain.Random, out reason))
+			_x = (gameMain.ScreenWidth / 2) - 430;
+			_y = (gameMain.ScreenHeight / 2) - 300;
+			if (!Initialize((gameMain.ScreenWidth / 2) - 450, (gameMain.ScreenHeight / 2) - 320, 900, 640, StretchableImageType.MediumBorder, gameMain, false, gameMain.Random, out reason))
+			{
+				return false;
+			}
+			_shipBackground = new BBStretchableImage(); //Used for sprite preview
+			if (!_shipBackground.Initialize(0,0, 170, 170, StretchableImageType.ThinBorderBG, gameMain.Random, out reason))
 			{
 				return false;
 			}
@@ -86,6 +101,10 @@ namespace Beyond_Beyaan.Screens
 			_combatSpeedValueLabels = new BBLabel[6];
 			_costLabels = new BBLabel[6];
 			_costValueLabels = new BBLabel[6];
+			_amountLabels = new BBLabel[6];
+			_amountValueLabels = new BBLabel[6];
+			_weaponLabels = new BBLabel[6][];
+			_specialLabels = new BBLabel[6][];
 			for (int i = 0; i < 6; i++)
 			{
 				_shipBackgrounds[i] = new BBStretchableImage();
@@ -116,15 +135,17 @@ namespace Beyond_Beyaan.Screens
 				_combatSpeedValueLabels[i] = new BBLabel();
 				_costLabels[i] = new BBLabel();
 				_costValueLabels[i] = new BBLabel();
-				if (!_shipBackgrounds[i].Initialize(x, y + (i * 100), 700, 100, StretchableImageType.ThinBorderBG, gameMain.Random, out reason))
+				_amountLabels[i] = new BBLabel();
+				_amountValueLabels[i] = new BBLabel();
+				if (!_shipBackgrounds[i].Initialize(_x, _y + (i * 100), 860, 100, StretchableImageType.ThinBorderBG, gameMain.Random, out reason))
 				{
 					return false;
 				}
-				if (!_shipNameLabels[i].Initialize(x + 10, y + 10 + (i * 100), string.Empty, System.Drawing.Color.White, out reason))
+				if (!_shipNameLabels[i].Initialize(_x + 10, _y + 10 + (i * 100), string.Empty, System.Drawing.Color.White, out reason))
 				{
 					return false;
 				}
-				if (!_scrapButtons[i].Initialize("ScrapShipBG", "ScrapShipFG", string.Empty, ButtonTextAlignment.LEFT, x + 250, y + 5 + (i * 100), 75, 35, gameMain.Random, out reason))
+				if (!_scrapButtons[i].Initialize("ScrapShipBG", "ScrapShipFG", string.Empty, ButtonTextAlignment.LEFT, _x + 250, _y + 5 + (i * 100), 75, 35, gameMain.Random, out reason))
 				{
 					return false;
 				}
@@ -132,51 +153,111 @@ namespace Beyond_Beyaan.Screens
 				{
 					return false;
 				}
-				if (!_beamBackgrounds[i].Initialize(x + 5, y + 39 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				if (!_beamBackgrounds[i].Initialize(_x + 5, _y + 39 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
 				{
 					return false;
 				}
-				if (!_beamDefLabels[i].Initialize(x + 10, y + 43 + (i * 100), "Beam Defense:", Color.Orange, out reason))
+				if (!_beamDefLabels[i].Initialize(_x + 10, _y + 43 + (i * 100), "Beam Defense:", Color.Orange, out reason))
 				{
 					return false;
 				}
-				if (!_beamDefValueLabels[i].Initialize(x + 155, y + 43 + (i * 100), string.Empty, Color.White, out reason))
+				if (!_beamDefValueLabels[i].Initialize(_x + 155, _y + 43 + (i * 100), string.Empty, Color.White, out reason))
 				{
 					return false;
 				}
-				if (!_missileBackgrounds[i].Initialize(x + 5, y + 66 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				if (!_missileBackgrounds[i].Initialize(_x + 5, _y + 66 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
 				{
 					return false;
 				}
-				if (!_missileDefLabels[i].Initialize(x + 10, y + 72 + (i * 100), "Missile Defense:", Color.Orange, out reason))
+				if (!_missileDefLabels[i].Initialize(_x + 10, _y + 72 + (i * 100), "Missile Defense:", Color.Orange, out reason))
 				{
 					return false;
 				}
-				if (!_missileDefValueLabels[i].Initialize(x + 155, y + 72 + (i * 100), string.Empty, Color.White, out reason))
+				if (!_missileDefValueLabels[i].Initialize(_x + 155, _y + 72 + (i * 100), string.Empty, Color.White, out reason))
 				{
 					return false;
 				}
-				if (!_attackBackgrounds[i].Initialize(x + 165, y + 39 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				if (!_attackBackgrounds[i].Initialize(_x + 165, _y + 39 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
 				{
 					return false;
 				}
-				if (!_attackLevelLabels[i].Initialize(x + 170, y + 43 + (i * 100), "Attack Level:", Color.Orange, out reason))
+				if (!_attackLevelLabels[i].Initialize(_x + 170, _y + 43 + (i * 100), "Attack Level:", Color.Orange, out reason))
 				{
 					return false;
 				}
-				if (!_attackLevelValueLabels[i].Initialize(x + 315, y + 43 + (i * 100), string.Empty, Color.White, out reason))
+				if (!_attackLevelValueLabels[i].Initialize(_x + 315, _y + 43 + (i * 100), string.Empty, Color.White, out reason))
 				{
 					return false;
 				}
-				if (!_hitPointsBackgrounds[i].Initialize(x + 165, y + 66 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				if (!_hitPointsBackgrounds[i].Initialize(_x + 165, _y + 66 + (i * 100), 160, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
 				{
 					return false;
 				}
-				if (!_hitPointsLabels[i].Initialize(x + 170, y + 72 + (i * 100), "Hit Points:", Color.Orange, out reason))
+				if (!_hitPointsLabels[i].Initialize(_x + 170, _y + 72 + (i * 100), "Hit Points:", Color.Orange, out reason))
 				{
 					return false;
 				}
-				if (!_hitPointsValueLabels[i].Initialize(x + 315, y + 72 + (i * 100), string.Empty, Color.White, out reason))
+				if (!_hitPointsValueLabels[i].Initialize(_x + 315, _y + 72 + (i * 100), string.Empty, Color.White, out reason))
+				{
+					return false;
+				}
+				if (!_shieldBackgrounds[i].Initialize(_x + 325, _y + 5 + (i * 100), 140, 35, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				{
+					return false;
+				}
+				if (!_shieldLabels[i].Initialize(_x + 330, _y + 12 + (i * 100), "Shield Level:", Color.Orange, out reason))
+				{
+					return false;
+				}
+				if (!_shieldValueLabels[i].Initialize(_x + 455, _y + 12 + (i * 100), string.Empty, Color.White, out reason))
+				{
+					return false;
+				}
+				if (!_galaxySpeedBackgrounds[i].Initialize(_x + 325, _y + 39 + (i * 100), 140, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				{
+					return false;
+				}
+				if (!_galaxySpeedLabels[i].Initialize(_x + 330, _y + 43 + (i * 100), "Galaxy Speed:", Color.Orange, out reason))
+				{
+					return false;
+				}
+				if (!_galaxySpeedValueLabels[i].Initialize(_x + 455, _y + 43 + (i * 100), string.Empty, Color.White, out reason))
+				{
+					return false;
+				}
+				if (!_combatSpeedBackgrounds[i].Initialize(_x + 325, _y + 66 + (i * 100), 140, 28, StretchableImageType.TinyButtonBG, gameMain.Random, out reason))
+				{
+					return false;
+				}
+				if (!_combatSpeedLabels[i].Initialize(_x + 330, _y + 72 + (i * 100), "Combat Speed:", Color.Orange, out reason))
+				{
+					return false;
+				}
+				if (!_combatSpeedValueLabels[i].Initialize(_x + 455, _y + 72 + (i * 100), string.Empty, Color.White, out reason))
+				{
+					return false;
+				}
+				if (!_weaponsBackgrounds[i].Initialize(_x + 470, _y + (i * 100), 200, 100, StretchableImageType.ThinBorderBG, gameMain.Random, out reason))
+				{
+					return false;
+				}
+				if (!_specialsBackgrounds[i].Initialize(_x + 670, _y + (i * 100), 190, 100, StretchableImageType.ThinBorderBG, gameMain.Random, out reason))
+				{
+					return false;
+				}
+				if (!_amountLabels[i].Initialize(_x + 675, _y + (i * 100) + 63, "Amt:", Color.Orange, out reason))
+				{
+					return false;
+				}
+				if (!_amountValueLabels[i].Initialize(_x + 755, _y + (i * 100) + 63, string.Empty, Color.White, out reason))
+				{
+					return false;
+				}
+				if (!_costLabels[i].Initialize(_x + 760, _y + (i * 100) + 63, "Cost: ", Color.Orange, out reason))
+				{
+					return false;
+				}
+				if (!_costValueLabels[i].Initialize(_x + 855, _y + (i * 100) + 63, string.Empty, Color.White, out reason))
 				{
 					return false;
 				}
@@ -184,6 +265,29 @@ namespace Beyond_Beyaan.Screens
 				_missileDefValueLabels[i].SetAlignment(true);
 				_attackLevelValueLabels[i].SetAlignment(true);
 				_hitPointsValueLabels[i].SetAlignment(true);
+				_shieldValueLabels[i].SetAlignment(true);
+				_galaxySpeedValueLabels[i].SetAlignment(true);
+				_combatSpeedValueLabels[i].SetAlignment(true);
+				_costValueLabels[i].SetAlignment(true);
+				_amountValueLabels[i].SetAlignment(true);
+				_weaponLabels[i] = new BBLabel[4];
+				for (int j = 0; j < _weaponLabels[i].Length; j++)
+				{
+					_weaponLabels[i][j] = new BBLabel();
+					if (!_weaponLabels[i][j].Initialize(_x + 475, _y + 7 + (i * 100 + j * 21), string.Empty, Color.White, out reason))
+					{
+						return false;
+					}
+				}
+				_specialLabels[i] = new BBLabel[3];
+				for (int j = 0; j < _specialLabels[i].Length; j++)
+				{
+					_specialLabels[i][j] = new BBLabel();
+					if (!_specialLabels[i][j].Initialize(_x + 675, _y + 7 + (i * 100 + j * 21), string.Empty, Color.White, out reason))
+					{
+						return false;
+					}
+				}
 			}
 
 			reason = null;
@@ -192,14 +296,14 @@ namespace Beyond_Beyaan.Screens
 
 		public void LoadDesigns()
 		{
-			var currentEmpire = _gameMain.EmpireManager.CurrentEmpire;
-			bool moreThanOneDesign = currentEmpire.FleetManager.CurrentDesigns.Count > 1;
-			_maxVisible = currentEmpire.FleetManager.CurrentDesigns.Count;
+			_fleetManager = _gameMain.EmpireManager.CurrentEmpire.FleetManager;
+			bool moreThanOneDesign = _fleetManager.CurrentDesigns.Count > 1;
+			_maxVisible = _fleetManager.CurrentDesigns.Count;
 			for (int i = 0; i < _maxVisible; i++)
 			{
-				if (i < currentEmpire.FleetManager.CurrentDesigns.Count)
+				if (i < _fleetManager.CurrentDesigns.Count)
 				{
-					var shipDesign = currentEmpire.FleetManager.CurrentDesigns[i];
+					var shipDesign = _fleetManager.CurrentDesigns[i];
 					//_shipSprites[i] = currentEmpire.EmpireRace.GetShip(shipDesign.Size, shipDesign.WhichStyle);
 					_shipNameLabels[i].SetText(shipDesign.Name);
 					_scrapButtons[i].Active = moreThanOneDesign;
@@ -207,6 +311,36 @@ namespace Beyond_Beyaan.Screens
 					_missileDefValueLabels[i].SetText(shipDesign.MissileDefense.ToString());
 					_attackLevelValueLabels[i].SetText(shipDesign.AttackLevel.ToString());
 					_hitPointsValueLabels[i].SetText(shipDesign.MaxHitPoints.ToString());
+					_shieldValueLabels[i].SetText(shipDesign.ShieldLevel.ToString());
+					_galaxySpeedValueLabels[i].SetText(shipDesign.GalaxySpeed.ToString());
+					_combatSpeedValueLabels[i].SetText(shipDesign.ManeuverSpeed.ToString());
+					_costValueLabels[i].SetText(string.Format("{0:0.0}", shipDesign.Cost));
+					int j = 0;
+					foreach (var weapon in shipDesign.Weapons)
+					{
+						if (weapon.Key != null)
+						{
+							_weaponLabels[i][j].SetText(string.Format("{0:00} {1}", weapon.Value, weapon.Key.DisplayName));
+						}
+						j++;
+					}
+					for (; j < 4; j++)
+					{
+						//Set the rest of unused weapon slots to blank
+						_weaponLabels[i][j].SetText(string.Empty);
+					}
+					for (j = 0; j < 3; j++)
+					{
+						if (shipDesign.Specials[j] != null)
+						{
+							_specialLabels[i][j].SetText(shipDesign.Specials[j].DisplayName);
+						}
+						else
+						{
+							_specialLabels[i][j].SetText(string.Empty);
+						}
+					}
+					_amountValueLabels[i].SetText(_fleetManager.GetShipCount(shipDesign).ToString());
 				}
 			}
 		}
@@ -231,6 +365,37 @@ namespace Beyond_Beyaan.Screens
 				_hitPointsBackgrounds[i].Draw();
 				_hitPointsLabels[i].Draw();
 				_hitPointsValueLabels[i].Draw();
+				_shieldBackgrounds[i].Draw();
+				_shieldLabels[i].Draw();
+				_shieldValueLabels[i].Draw();
+				_galaxySpeedBackgrounds[i].Draw();
+				_galaxySpeedLabels[i].Draw();
+				_galaxySpeedValueLabels[i].Draw();
+				_combatSpeedBackgrounds[i].Draw();
+				_combatSpeedLabels[i].Draw();
+				_combatSpeedValueLabels[i].Draw();
+				_weaponsBackgrounds[i].Draw();
+				_specialsBackgrounds[i].Draw();
+				for (int j = 0; j < 4; j++)
+				{
+					_weaponLabels[i][j].Draw();
+				}
+				for (int j = 0; j < 3; j++)
+				{
+					_specialLabels[i][j].Draw();
+				}
+				_amountLabels[i].Draw();
+				_amountValueLabels[i].Draw();
+				_costLabels[i].Draw();
+				_costValueLabels[i].Draw();
+			}
+			if (_previewVisible)
+			{
+				_shipBackground.Draw();
+				GorgonLibrary.Gorgon.CurrentShader = _gameMain.ShipShader;
+				_gameMain.ShipShader.Parameters["EmpireColor"].SetValue(_empireColor);
+				_shipSprite.Draw(_shipPoint.X, _shipPoint.Y);
+				GorgonLibrary.Gorgon.CurrentShader = null;
 			}
 		}
 
@@ -242,11 +407,22 @@ namespace Beyond_Beyaan.Screens
 			{
 				result = _scrapButtons[i].MouseHover(x, y, frameDeltaTime) || result;
 			}
-			if (result)
+			_previewVisible = false;
+			if (x >= _x && x < _x + 860)
 			{
-				//So we don't highlight the button behind the scrap button
-				x = int.MinValue;
-				y = int.MinValue;
+				for (int i = 0; i < _maxVisible; i++)
+				{
+					if (y >= _y + (i * 100) && y < _y + ((i + 1) * 100))
+					{
+						var ship = _fleetManager.CurrentDesigns[i];
+						_shipSprite = ship.Owner.EmpireRace.GetShip(ship.Size, ship.WhichStyle);
+						_empireColor = ship.Owner.ConvertedColor;
+						_previewVisible = true;
+						_shipBackground.MoveTo(_x - 170, _y + (i * 100) - 35);
+						_shipPoint.X = _x - 85;
+						_shipPoint.Y = _y + (i * 100) + 50;
+					}
+				}
 			}
 			return result;
 		}

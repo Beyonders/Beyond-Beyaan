@@ -232,6 +232,13 @@ namespace Beyond_Beyaan
 				return (Computer == null ? 0 : Computer.Technology.BattleComputer); //Todo: add battle scanner's +1 if ship has it
 			}
 		}
+		public int ShieldLevel
+		{
+			get
+			{
+				return (Shield == null ? 0 : Shield.Technology.Shield);
+			}
+		}
 		#endregion
 
 		#region Constructors
