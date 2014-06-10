@@ -212,7 +212,7 @@ namespace Beyond_Beyaan
 			CurrentDesigns.Add(ship);
 		}
 
-		public float ObsoleteShipDesign(Ship shipToObsolete)
+		public void ObsoleteShipDesign(Ship shipToObsolete)
 		{
 			float totalScrappedValue = 0;
 			foreach (var fleet in _fleets)
@@ -226,7 +226,7 @@ namespace Beyond_Beyaan
 			ClearEmptyFleets();
 			CurrentDesigns.Remove(shipToObsolete);
 			//ObsoleteDesigns.Add(shipToObsolete);
-			return totalScrappedValue;
+			_empire.Reserves += totalScrappedValue;
 		}
 
 		public Ship GetShipWithDesignID(int designID)

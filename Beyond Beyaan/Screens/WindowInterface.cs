@@ -26,7 +26,7 @@ namespace Beyond_Beyaan.Screens
 			_yPos = y;
 			_windowWidth = width;
 			_windowHeight = height;
-			this._moveable = moveable;
+			_moveable = moveable;
 
 			_moving = false;
 			_gameMain = gameMain;

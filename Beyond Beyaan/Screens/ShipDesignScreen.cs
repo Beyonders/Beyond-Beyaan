@@ -292,7 +292,7 @@ namespace Beyond_Beyaan.Screens
 			{
 				return false;
 			}
-			if (!_nameField.Initialize(string.Empty, x + 325, y + 527, 250, 30, false, gameMain.Random, out reason))
+			if (!_nameField.Initialize(string.Empty, x + 325, y + 527, 150, 30, false, gameMain.Random, out reason))
 			{
 				return false;
 			}
@@ -330,6 +330,7 @@ namespace Beyond_Beyaan.Screens
 			{
 				return false;
 			}
+			_fleetSpecsWindow.ScrapAction = ScrapAction;
 			_fleetSpecsShowing = false;
 
 			return true;
@@ -490,13 +491,8 @@ namespace Beyond_Beyaan.Screens
 			}
 			if (_fleetSpecsShowing && !_fleetSpecsWindow.MouseUp(x, y))
 			{
-				//Clicked outside the window, check and see if at least one ship design has been scrapped
+				//Clicked outside the window, didn't scrap, so close window
 				_fleetSpecsShowing = false;
-				if (_gameMain.EmpireManager.CurrentEmpire.FleetManager.CurrentDesigns.Count < 6)
-				{
-					_gameMain.EmpireManager.CurrentEmpire.FleetManager.AddShipDesign(_shipDesign);
-				}
-				//In any case, close the window
 				if (CloseWindow != null)
 				{
 					CloseWindow();
@@ -682,6 +678,20 @@ namespace Beyond_Beyaan.Screens
 			LoadTechnologies();
 			RefreshAll();
 			_nameField.SetText(_shipDesign.Name);
+		}
+
+		private void ScrapAction()
+		{
+			_fleetSpecsShowing = false;
+			if (_gameMain.EmpireManager.CurrentEmpire.FleetManager.CurrentDesigns.Count < 6)
+			{
+				_gameMain.EmpireManager.CurrentEmpire.FleetManager.AddShipDesign(_shipDesign);
+			}
+			//In any case, close the window
+			if (CloseWindow != null)
+			{
+				CloseWindow();
+			}
 		}
 
 		private void RefreshAll()

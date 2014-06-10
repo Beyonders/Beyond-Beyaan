@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Beyond_Beyaan.Data_Modules;
 
 namespace Beyond_Beyaan.Screens
@@ -59,6 +60,8 @@ namespace Beyond_Beyaan.Screens
 		private int _x;
 		private int _y;
 		private FleetManager _fleetManager;
+
+		public Action ScrapAction;
 
 		public bool Initialize(GameMain gameMain, out string reason)
 		{
@@ -141,7 +144,7 @@ namespace Beyond_Beyaan.Screens
 				{
 					return false;
 				}
-				if (!_shipNameLabels[i].Initialize(_x + 10, _y + 10 + (i * 100), string.Empty, System.Drawing.Color.White, out reason))
+				if (!_shipNameLabels[i].Initialize(_x + 10, _y + 10 + (i * 100), string.Empty, Color.White, out reason))
 				{
 					return false;
 				}
@@ -446,6 +449,10 @@ namespace Beyond_Beyaan.Screens
 				{
 					_gameMain.EmpireManager.CurrentEmpire.FleetManager.ObsoleteShipDesign(_gameMain.EmpireManager.CurrentEmpire.FleetManager.CurrentDesigns[i]);
 					LoadDesigns();
+					if (ScrapAction != null)
+					{
+						ScrapAction();
+					}
 					return true;
 				}
 			}

@@ -24,6 +24,7 @@ namespace Beyond_Beyaan.Screens
 		private ResearchScreen _researchScreen;
 		private ShipDesignScreen _shipDesignScreen;
 		private PlanetsView _planetsView;
+		private FleetListScreen _fleetListScreen;
 
 		private WindowInterface _windowShowing;
 
@@ -80,6 +81,7 @@ namespace Beyond_Beyaan.Screens
 			_researchScreen = new ResearchScreen();
 			_shipDesignScreen = new ShipDesignScreen();
 			_planetsView = new PlanetsView();
+			_fleetListScreen = new FleetListScreen();
 			if (!_inGameMenu.Initialize(_gameMain, out reason))
 			{
 				return false;
@@ -96,6 +98,10 @@ namespace Beyond_Beyaan.Screens
 			{
 				return false;
 			}
+			if (!_fleetListScreen.Initialize(_gameMain, out reason))
+			{
+				return false;
+			}
 			_inGameMenu.CloseWindow = CloseWindow;
 			_researchScreen.CloseWindow = CloseWindow;
 			_shipDesignScreen.CloseWindow = CloseWindow;
@@ -106,6 +112,7 @@ namespace Beyond_Beyaan.Screens
 			_taskBar.ShowResearchScreen = ShowResearchScreen;
 			_taskBar.ShowShipDesignScreen = ShowShipDesignScreen;
 			_taskBar.ShowPlanetsScreen = ShowPlanetsView;
+			_taskBar.ShowFleetOverviewScreen = ShowFleetListScreen;
 			_taskBar.EndTurn = CloseWindow;
 
 			_travelETA = new BBLabel();
@@ -861,6 +868,12 @@ namespace Beyond_Beyaan.Screens
 		{
 			_windowShowing = _planetsView;
 			_planetsView.Load();
+		}
+
+		private void ShowFleetListScreen()
+		{
+			_windowShowing = _fleetListScreen;
+			_fleetListScreen.LoadScreen();
 		}
 
 		public void ResetCamera()

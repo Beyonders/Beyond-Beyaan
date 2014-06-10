@@ -10,6 +10,7 @@ namespace Beyond_Beyaan
 		public Action ShowGameMenu;
 		public Action ShowResearchScreen;
 		public Action ShowShipDesignScreen;
+		public Action ShowFleetOverviewScreen;
 		public Action ShowPlanetsScreen;
 		public Action EndTurn;
 
@@ -166,6 +167,15 @@ namespace Beyond_Beyaan
 							}
 							break;
 						}
+						case 2:
+						{
+							if (ShowFleetOverviewScreen != null)
+							{
+								ShowFleetOverviewScreen();
+								SetToScreen(Screen.FleetList);
+							}
+						}
+							break;
 						case 4: 
 							if (ShowPlanetsScreen != null)
 							{

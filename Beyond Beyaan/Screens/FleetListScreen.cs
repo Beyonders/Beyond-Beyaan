@@ -1,115 +1,135 @@
-﻿using GorgonLibrary.InputDevices;
+﻿using System;
+using System.Drawing;
+using Beyond_Beyaan.Data_Modules;
+using GorgonLibrary.InputDevices;
 
 namespace Beyond_Beyaan.Screens
 {
-	public class FleetListScreen : ScreenInterface
+	public class FleetListScreen : WindowInterface
 	{
-		/*GameMain _gameMain;
+		public Action CloseWindow;
 
-		Label fleetLabel;
-		Label shipLabel;
-		Label shipNameLabel;
-		Label sizeLabel;
-		Label engineLabel;
-		Label computerLabel;
-		Label armorLabel;
-		Label shieldLabel;
-		Label weaponLabel;
-		Label mountsLabel;
-		Label shotsLabel;
-		Label specs;
+		private BBStretchButton[] _shipNames; //This includes both background image and label, as well as centering functionality
+		private BBLabel[] _statusLabels;
+		private BBLabel[] _planetNames;
+		private BBSprite[] _planetSprites;
+		private BBStretchableImage[] _planetBackgrounds;
+		private BBScrollBar _scrollBar;
 
-		Button[] fleetButtons;
-		Button[] shipButtons;
-		Button scrapFleet;
-		Button scrapShip;
-		Button showOurFleets;
-		Button showOtherFleets;
+		private BBStretchButton[][] _shipAmountLabels;
 
-		List<Fleet> ownedFleets;
-		List<Fleet> otherFleets;
-		List<Fleet> allFleets;
-		List<Fleet> whichFleets;
-
-		SingleLineTextBox nameText;
-		SingleLineTextBox sizeText;
-		SingleLineTextBox engineText;
-		SingleLineTextBox computerText;
-		SingleLineTextBox armorText;
-		SingleLineTextBox shieldText;
-		SingleLineTextBox[] weaponTexts;
-		SingleLineTextBox[] mountsTexts;
-		SingleLineTextBox[] shotsTexts;
-
-		int weaponIndex;
-		int fleetIndex;
-		int shipIndex;
-		int selectedFleet;
-		int selectedShip;
-
-		Fleet fleetSelected;
-		Fleet hoveringFleet;
-
-		Ship shipSelected;
-		private BBSprite shipSprite;*/
+		private int _maxVisible;
+		private int _x;
+		private int _y;
+		private FleetManager _fleetManager;
 
 		public bool Initialize(GameMain gameMain, out string reason)
 		{
-			/*this._gameMain = _gameMain;
+			_gameMain = gameMain;
 
-			int x = (_gameMain.ScreenWidth / 2) - 400;
-			int y = (_gameMain.ScreenHeight / 2) - 300;
-
-			fleetLabel = new Label("Fleets", x + 2, y + 2);
-			shipLabel = new Label("Ships in this fleet", x + 202, y + 2);
-			specs = new Label("Specifications", x + 200, y + 400);
-			shipNameLabel = new Label("Name:", x + 200, y + 425);
-			sizeLabel = new Label("Size", x + 200, y + 450);
-			engineLabel = new Label("Engine:", x + 200, y + 475);
-			computerLabel = new Label("Computer:", x + 200, y + 500);
-			armorLabel = new Label("Armor:", x + 200, y + 525);
-			shieldLabel = new Label("Shield:", x + 200, y + 550);
-			weaponLabel = new Label("Weapons", x + 452, y + 402);
-			mountsLabel = new Label("Mounts", x + 675, y + 402);
-			shotsLabel = new Label("Shots", x + 730, y + 402);
-
-			fleetButtons = new Button[11];
-			shipButtons = new Button[11];
-
-			for (int i = 0; i < fleetButtons.Length; i++)
+			_x = (gameMain.ScreenWidth / 2) - 500;
+			_y = (gameMain.ScreenHeight / 2) - 300;
+			if (!Initialize((gameMain.ScreenWidth / 2) - 520, (gameMain.ScreenHeight / 2) - 320, 1040, 640, StretchableImageType.MediumBorder, gameMain, false, gameMain.Random, out reason))
 			{
-				fleetButtons[i] = new Button(SpriteName.MiniBackgroundButton, SpriteName.MiniForegroundButton, string.Empty, x + 2, y + 25 + (i * 25), 182, 25);
-				shipButtons[i] = new Button(SpriteName.MiniBackgroundButton, SpriteName.MiniForegroundButton, string.Empty, x + 202, y + 25 + (i * 25), 182, 25);
+				return false;
 			}
 
-			scrapFleet = new Button(SpriteName.MiniBackgroundButton, SpriteName.MiniForegroundButton, "Scrap this fleet", x + 2, y + 304, 182, 25);
-			showOurFleets = new Button(SpriteName.MiniBackgroundButton, SpriteName.MiniForegroundButton, "Show our fleets", x + 2, y + 332, 182, 25);
-			scrapShip = new Button(SpriteName.MiniBackgroundButton, SpriteName.MiniForegroundButton, "Scrap this ship", x + 202, y + 304, 182, 25);
-			showOtherFleets = new Button(SpriteName.MiniBackgroundButton, SpriteName.MiniForegroundButton, "Show other fleets", x + 202, y + 332, 182, 25);
-
-			nameText = new SingleLineTextBox(x + 275, y + 425, 150, 23, SpriteName.MiniBackgroundButton);
-			sizeText = new SingleLineTextBox(x + 275, y + 450, 150, 23, SpriteName.MiniBackgroundButton);
-			engineText = new SingleLineTextBox(x + 275, y + 475, 150, 23, SpriteName.MiniBackgroundButton);
-			computerText = new SingleLineTextBox(x + 275, y + 500, 150, 23, SpriteName.MiniBackgroundButton);
-			armorText = new SingleLineTextBox(x + 275, y + 525, 150, 23, SpriteName.MiniBackgroundButton);
-			shieldText = new SingleLineTextBox(x + 275, y + 550, 150, 23, SpriteName.MiniBackgroundButton);
-
-			weaponTexts = new SingleLineTextBox[6];
-			mountsTexts = new SingleLineTextBox[6];
-			shotsTexts = new SingleLineTextBox[6];
-
-			for (int i = 0; i < weaponTexts.Length; i++)
+			_shipNames = new BBStretchButton[6];
+			for (int i = 0; i < _shipNames.Length; i++)
 			{
-				weaponTexts[i] = new SingleLineTextBox(x + 450, y + 425, 200, 23, SpriteName.MiniBackgroundButton);
-				mountsTexts[i] = new SingleLineTextBox(x + 675, y + 425, 40, 23, SpriteName.MiniBackgroundButton);
-				shotsTexts[i] = new SingleLineTextBox(x + 730, y + 425, 40, 23, SpriteName.MiniBackgroundButton);
-			}*/
+				_shipNames[i] = new BBStretchButton();
+				if (!_shipNames[i].Initialize(string.Empty, ButtonTextAlignment.CENTER, StretchableImageType.ThinBorderBG, StretchableImageType.ThinBorderFG, _x + 80 + (150 * i), _y, 150, 40, _gameMain.Random, out reason))
+				{
+					return false;
+				}
+			}
+
+			_planetBackgrounds = new BBStretchableImage[10];
+			_planetSprites = new BBSprite[10];
+			_planetNames = new BBLabel[10];
+			_statusLabels = new BBLabel[11];
+			_scrollBar = new BBScrollBar();
+
+			_statusLabels[0] = new BBLabel();
+			if (!_statusLabels[0].Initialize(_x, _y + 5, "Status", Color.White, out reason))
+			{
+				return false;
+			}
+
+			for (int i = 0; i < 10; i++)
+			{
+				_planetBackgrounds[i] = new BBStretchableImage();
+				if (!_planetBackgrounds[i].Initialize(_x, _y + 40 + (50 * i), 980, 50, StretchableImageType.ThinBorderBG, _gameMain.Random, out reason))
+				{
+					return false;
+				}
+				_planetNames[i] = new BBLabel();
+				if (!_planetNames[i].Initialize(_x + 5, _y + 65 + (50 * i), string.Empty, Color.GreenYellow, out reason))
+				{
+					return false;
+				}
+				_planetNames[i].SetColor(Color.GreenYellow, Color.Black);
+				_statusLabels[i + 1] = new BBLabel();
+				if (!_statusLabels[i + 1].Initialize(_x + 5, _y + 45 + (50 * i), string.Empty, Color.Orange, out reason))
+				{
+					return false;
+				}
+			}
+
+			_shipAmountLabels = new BBStretchButton[10][];
+			for (int i = 0; i < _shipAmountLabels.Length; i++)
+			{
+				_shipAmountLabels[i] = new BBStretchButton[6];
+				for (int j = 0; j < 6; j++)
+				{
+					_shipAmountLabels[i][j] = new BBStretchButton();
+					if (!_shipAmountLabels[i][j].Initialize(string.Empty, ButtonTextAlignment.RIGHT, StretchableImageType.TinyButtonBG, StretchableImageType.TinyButtonFG, _x + 80 + (150 * j), _y + 43 + (i * 50), 150, 25, _gameMain.Random, out reason))
+					{
+						return false;
+					}
+				}
+			}
+
+			if (!_scrollBar.Initialize(_x + 980, _y + 40, 500, 0, 10, false, false, _gameMain.Random, out reason))
+			{
+				return false;
+			}
+
 			reason = null;
 			return true;
 		}
 
-		public void DrawScreen()
+		public override void Draw()
 		{
+			base.Draw();
+
+			int i;
+
+			for (i = 0; i < 6; i++)
+			{
+				_shipNames[i].Draw();
+			}
+			_statusLabels[0].Draw();
+			
+			for (i = 0; i < _maxVisible; i++)
+			{
+				_planetBackgrounds[i].Draw();
+				_planetNames[i].Draw();
+				_statusLabels[i + 1].Draw();
+				for (int j = 0; j < 6; j++)
+				{
+					_shipAmountLabels[i][j].Draw();
+				}
+			}
+			for (; i < 10; i++)
+			{
+				_planetBackgrounds[i].Draw();
+				for (int j = 0; j < 6; j++)
+				{
+					_shipAmountLabels[i][j].Draw();
+				}
+			}
+			_scrollBar.Draw();
 			/*_gameMain.DrawGalaxyBackground();
 
 			drawingManagement.DrawSprite(SpriteName.ControlBackground, (_gameMain.ScreenWidth / 2) - 400, (_gameMain.ScreenHeight / 2) - 300, 255, 800, 600, System.Drawing.Color.White);
@@ -176,7 +196,7 @@ namespace Beyond_Beyaan.Screens
 			}*/
 		}
 
-		public void Update(int x, int y, float frameDeltaTime)
+		public override bool MouseHover(int x, int y, float frameDeltaTime)
 		{
 			/*int maxVisible = (whichFleets.Count > fleetButtons.Length ? fleetButtons.Length : whichFleets.Count);
 			hoveringFleet = null;
@@ -199,10 +219,12 @@ namespace Beyond_Beyaan.Screens
 			scrapShip.MouseHover(x, y, frameDeltaTime);
 			showOtherFleets.MouseHover(x, y, frameDeltaTime);
 			showOurFleets.MouseHover(x, y, frameDeltaTime);*/
+			return false;
 		}
 
-		public void MouseDown(int x, int y, int whichButton)
+		public override bool MouseDown(int x, int y)
 		{
+			bool result = base.MouseDown(x, y);
 			/*int maxVisible = (whichFleets.Count > fleetButtons.Length ? fleetButtons.Length : whichFleets.Count);
 			for (int i = 0; i < maxVisible; i++)
 			{
@@ -220,10 +242,12 @@ namespace Beyond_Beyaan.Screens
 			scrapShip.MouseDown(x, y);
 			showOtherFleets.MouseDown(x, y);
 			showOurFleets.MouseDown(x, y);*/
+			return result;
 		}
 
-		public void MouseUp(int x, int y, int whichButton)
+		public override bool MouseUp(int x, int y)
 		{
+			bool result = base.MouseUp(x, y);
 			/*int maxVisible = (whichFleets.Count > fleetButtons.Length ? fleetButtons.Length : whichFleets.Count);
 			for (int i = 0; i < maxVisible; i++)
 			{
@@ -277,13 +301,21 @@ namespace Beyond_Beyaan.Screens
 				UpdateList();
 				UpdateLabels();
 			}*/
+			if (!result)
+			{
+				if (CloseWindow != null)
+				{
+					CloseWindow();
+				}
+			}
+			return result;
 		}
 
 		public void MouseScroll(int direction, int x, int y)
 		{
 		}
 
-		public void KeyDown(KeyboardInputEventArgs e)
+		public override bool KeyDown(KeyboardInputEventArgs e)
 		{
 			/*if (e.Key == KeyboardKeys.Escape)
 			{
@@ -293,10 +325,69 @@ namespace Beyond_Beyaan.Screens
 			{
 				_gameMain.ToggleSitRep();
 			}*/
+			return false;
 		}
 
 		public void LoadScreen()
 		{
+			_fleetManager = _gameMain.EmpireManager.CurrentEmpire.FleetManager;
+			var fleets = _fleetManager.GetFleets();
+
+			int i;
+			for (i = 0; i < _fleetManager.CurrentDesigns.Count; i++)
+			{
+				_shipNames[i].SetText(_fleetManager.CurrentDesigns[i].Name);
+				_shipNames[i].Enabled = true;
+			}
+			for (; i < 6; i++)
+			{
+				_shipNames[i].SetText(string.Empty);
+				_shipNames[i].Enabled = false;
+			}
+
+			_scrollBar.TopIndex = 0;
+			if (fleets.Count > 10)
+			{
+				_maxVisible = 10;
+				_scrollBar.SetEnabledState(true);
+				_scrollBar.SetAmountOfItems(fleets.Count);
+			}
+			else
+			{
+				_maxVisible = fleets.Count;
+				_scrollBar.SetEnabledState(false);
+				_scrollBar.SetAmountOfItems(10);
+			}
+
+			for (i = 0; i < _maxVisible; i++)
+			{
+				var fleet = fleets[i + _scrollBar.TopIndex];
+				if (fleet.TravelNodes != null && fleet.TravelNodes.Count > 0)
+				{
+					//It's going somewhere
+					if (fleet.TravelNodes[0].StarSystem.IsThisSystemExploredByEmpire(fleet.Empire))
+					{
+						_planetNames[i].SetText(fleet.TravelNodes[0].StarSystem.Name);
+					}
+					else
+					{
+						_planetNames[i].SetText("Unexplored System");
+					}
+					_statusLabels[i + 1].SetText("Enroute");
+					_statusLabels[i + 1].SetColor(Color.Yellow, Color.Black);
+				}
+				else
+				{
+					_planetNames[i].SetText(fleet.AdjacentSystem.Name);
+					_statusLabels[i + 1].SetText("Orbiting");
+					_statusLabels[i + 1].SetColor(Color.Orange, Color.Black);
+				}
+			}
+			/*var fleets = _fleetManager.GetFleets();
+			if (fleets.Count > 5)
+			{
+				_maxVisible = 5;
+			}*/
 			/*Empire currentEmpire = _gameMain.EmpireManager.CurrentEmpire;
 			ownedFleets = currentEmpire.FleetManager.GetFleets();
 			otherFleets = currentEmpire.VisibleFleets;

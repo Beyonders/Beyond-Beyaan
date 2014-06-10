@@ -29,7 +29,6 @@ namespace Beyond_Beyaan
 		private NewGame _newGame;
 		private GalaxyScreen _galaxyScreen;
 		private DiplomacyScreen _diplomacyScreen;
-		private FleetListScreen _fleetListScreen;
 		private ProcessingTurnScreen _processingTurnScreen;
 		//private SpaceCombat _spaceCombat;
 		
@@ -296,20 +295,6 @@ namespace Beyond_Beyaan
 					}
 					_diplomacyScreen.SetupScreen();
 					_screenInterface = _diplomacyScreen;
-					break;
-				case Screen.FleetList:
-					if (_fleetListScreen == null)
-					{
-						_fleetListScreen = new FleetListScreen();
-						string reason;
-						if (!_fleetListScreen.Initialize(this, out reason))
-						{
-							MessageBox.Show("Exception in loading Fleet List Screen. Reason: " + reason);
-							_parentForm.Close();
-						}
-					}
-					_fleetListScreen.LoadScreen();
-					_screenInterface = _fleetListScreen;
 					break;
 				case Screen.ProcessTurn:
 					EmpireManager.CurrentEmpire.ClearTurnData();
