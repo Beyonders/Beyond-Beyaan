@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Beyond_Beyaan.Data_Managers;
 using Beyond_Beyaan.Data_Modules;
 using GorgonLibrary.InputDevices;
 
@@ -12,7 +13,6 @@ namespace Beyond_Beyaan.Screens
 		private BBStretchButton[] _shipNames; //This includes both background image and label, as well as centering functionality
 		private BBLabel[] _statusLabels;
 		private BBLabel[] _planetNames;
-		private BBSprite[] _planetSprites;
 		private BBStretchableImage[] _planetBackgrounds;
 		private BBScrollBar _scrollBar;
 
@@ -45,7 +45,6 @@ namespace Beyond_Beyaan.Screens
 			}
 
 			_planetBackgrounds = new BBStretchableImage[10];
-			_planetSprites = new BBSprite[10];
 			_planetNames = new BBLabel[10];
 			_statusLabels = new BBLabel[11];
 			_scrollBar = new BBScrollBar();
@@ -68,7 +67,6 @@ namespace Beyond_Beyaan.Screens
 				{
 					return false;
 				}
-				_planetNames[i].SetColor(Color.GreenYellow, Color.Black);
 				_statusLabels[i + 1] = new BBLabel();
 				if (!_statusLabels[i + 1].Initialize(_x + 5, _y + 45 + (50 * i), string.Empty, Color.Orange, out reason))
 				{
@@ -83,17 +81,21 @@ namespace Beyond_Beyaan.Screens
 				for (int j = 0; j < 6; j++)
 				{
 					_shipAmountLabels[i][j] = new BBStretchButton();
-					if (!_shipAmountLabels[i][j].Initialize(string.Empty, ButtonTextAlignment.RIGHT, StretchableImageType.TinyButtonBG, StretchableImageType.TinyButtonFG, _x + 80 + (150 * j), _y + 43 + (i * 50), 150, 25, _gameMain.Random, out reason))
+					if (!_shipAmountLabels[i][j].Initialize(string.Empty, ButtonTextAlignment.CENTER, StretchableImageType.TinyButtonBG, StretchableImageType.TinyButtonFG, _x + 80 + (150 * j), _y + 43 + (i * 50), 150, 25, _gameMain.Random, out reason))
 					{
 						return false;
 					}
 				}
 			}
 
-			if (!_scrollBar.Initialize(_x + 980, _y + 40, 500, 0, 10, false, false, _gameMain.Random, out reason))
+			if (!_scrollBar.Initialize(_x + 980, _y + 40, 500, 10, 10, false, false, _gameMain.Random, out reason))
 			{
 				return false;
 			}
+
+			//Set up for planet sprites
+			_x += 5;
+			_y += 45;
 
 			reason = null;
 			return true;
@@ -118,82 +120,17 @@ namespace Beyond_Beyaan.Screens
 				_statusLabels[i + 1].Draw();
 				for (int j = 0; j < 6; j++)
 				{
-					_shipAmountLabels[i][j].Draw();
+					if (_shipAmountLabels[i][j].Enabled)
+					{
+						_shipAmountLabels[i][j].Draw();
+					}
 				}
 			}
 			for (; i < 10; i++)
 			{
-				_planetBackgrounds[i].Draw();
-				for (int j = 0; j < 6; j++)
-				{
-					_shipAmountLabels[i][j].Draw();
-				}
+				_planetBackgrounds[i].Draw(Color.Tan, 255);
 			}
 			_scrollBar.Draw();
-			/*_gameMain.DrawGalaxyBackground();
-
-			drawingManagement.DrawSprite(SpriteName.ControlBackground, (_gameMain.ScreenWidth / 2) - 400, (_gameMain.ScreenHeight / 2) - 300, 255, 800, 600, System.Drawing.Color.White);
-			drawingManagement.DrawSprite(SpriteName.Screen, (_gameMain.ScreenWidth / 2), (_gameMain.ScreenHeight / 2) - 300, 255, 399, 399, System.Drawing.Color.White);
-
-			DrawGalaxyPreview(drawingManagement);
-
-			fleetLabel.Draw();
-			shipLabel.Draw();
-
-			int maxVisible = (whichFleets.Count > fleetButtons.Length ? fleetButtons.Length : whichFleets.Count);
-			for (int i = 0; i < maxVisible; i++)
-			{
-				fleetButtons[i].Draw(drawingManagement);
-			}
-			if (selectedFleet >= 0)
-			{
-				maxVisible = (whichFleets[selectedFleet + fleetIndex].Ships.Count > shipButtons.Length ? shipButtons.Length : whichFleets[selectedFleet + fleetIndex].Ships.Count);
-				for (int i = 0; i < maxVisible; i++)
-				{
-					shipButtons[i].Draw(drawingManagement);
-				}
-			}
-
-			scrapFleet.Draw(drawingManagement);
-			showOurFleets.Draw(drawingManagement);
-			scrapShip.Draw(drawingManagement);
-			showOtherFleets.Draw(drawingManagement);
-
-			if (selectedFleet != -1 && selectedShip != -1)
-			{
-				engineLabel.Draw();
-				computerLabel.Draw();
-				armorLabel.Draw();
-				shieldLabel.Draw();
-				shipNameLabel.Draw();
-				sizeLabel.Draw();
-				weaponLabel.Draw();
-				mountsLabel.Draw();
-				shotsLabel.Draw();
-				specs.Draw();
-
-				GorgonLibrary.Gorgon.CurrentShader = _gameMain.ShipShader;
-				_gameMain.ShipShader.Parameters["EmpireColor"].SetValue(whichFleets[selectedFleet].Empire.ConvertedColor);
-				shipSprite.Draw((_gameMain.ScreenWidth / 2) - 398, (_gameMain.ScreenHeight / 2) + 98, (180.0f / shipSprite.Width), (180.0f / shipSprite.Height));
-				GorgonLibrary.Gorgon.CurrentShader = null;
-				//DrawingManagement.DrawSprite(SpriteName.Corvette, (_gameMain.ScreenWidth / 2) - 398, (_gameMain.ScreenHeight / 2) + 98, 255, 180, 180, System.Drawing.Color.White);
-
-				nameText.Draw(drawingManagement);
-				sizeText.Draw(drawingManagement);
-				engineText.Draw(drawingManagement);
-				computerText.Draw(drawingManagement);
-				armorText.Draw(drawingManagement);
-				shieldText.Draw(drawingManagement);
-
-				maxVisible = shipSelected.Weapons.Count > weaponTexts.Length ? weaponTexts.Length : shipSelected.Weapons.Count;
-
-				for (int i = 0; i < maxVisible; i++)
-				{
-					weaponTexts[i].Draw(drawingManagement);
-					mountsTexts[i].Draw(drawingManagement);
-					shotsTexts[i].Draw(drawingManagement);
-				}
-			}*/
 		}
 
 		public override bool MouseHover(int x, int y, float frameDeltaTime)
@@ -311,23 +248,6 @@ namespace Beyond_Beyaan.Screens
 			return result;
 		}
 
-		public void MouseScroll(int direction, int x, int y)
-		{
-		}
-
-		public override bool KeyDown(KeyboardInputEventArgs e)
-		{
-			/*if (e.Key == KeyboardKeys.Escape)
-			{
-				_gameMain.ChangeToScreen(Screen.Galaxy);
-			}
-			if (e.Key == KeyboardKeys.Space)
-			{
-				_gameMain.ToggleSitRep();
-			}*/
-			return false;
-		}
-
 		public void LoadScreen()
 		{
 			_fleetManager = _gameMain.EmpireManager.CurrentEmpire.FleetManager;
@@ -359,6 +279,13 @@ namespace Beyond_Beyaan.Screens
 				_scrollBar.SetAmountOfItems(10);
 			}
 
+			Refresh();
+		}
+
+		private void Refresh()
+		{
+			var fleets = _fleetManager.GetFleets();
+			int i;
 			for (i = 0; i < _maxVisible; i++)
 			{
 				var fleet = fleets[i + _scrollBar.TopIndex];
@@ -374,43 +301,37 @@ namespace Beyond_Beyaan.Screens
 						_planetNames[i].SetText("Unexplored System");
 					}
 					_statusLabels[i + 1].SetText("Enroute");
-					_statusLabels[i + 1].SetColor(Color.Yellow, Color.Black);
+					_statusLabels[i + 1].SetColor(Color.Yellow, Color.Empty);
 				}
 				else
 				{
 					_planetNames[i].SetText(fleet.AdjacentSystem.Name);
 					_statusLabels[i + 1].SetText("Orbiting");
-					_statusLabels[i + 1].SetColor(Color.Orange, Color.Black);
+					_statusLabels[i + 1].SetColor(Color.Orange, Color.Empty);
+				}
+				for (int j = 0; j < 6; j++)
+				{
+					_shipAmountLabels[i][j].Enabled = false;
+					_shipAmountLabels[i][j].SetText(string.Empty);
+				}
+				foreach (var ship in fleet.Ships)
+				{
+					int index = _fleetManager.CurrentDesigns.IndexOf(ship.Key);
+					_shipAmountLabels[i][index].Enabled = true;
+					_shipAmountLabels[i][index].SetText(ship.Value.ToString());
 				}
 			}
-			/*var fleets = _fleetManager.GetFleets();
-			if (fleets.Count > 5)
+			for (; i < 10; i++)
 			{
-				_maxVisible = 5;
-			}*/
-			/*Empire currentEmpire = _gameMain.EmpireManager.CurrentEmpire;
-			ownedFleets = currentEmpire.FleetManager.GetFleets();
-			otherFleets = currentEmpire.VisibleFleets;
-			allFleets = new List<Fleet>();
-			foreach (Fleet fleet in ownedFleets)
-			{
-				allFleets.Add(fleet);
+				//Disable the remaining slots
+				_planetNames[i].SetText(string.Empty);
+				_statusLabels[i + 1].SetText(string.Empty);
+				for (int j = 0; j < 6; j++)
+				{
+					_shipAmountLabels[i][j].Enabled = false;
+					_shipAmountLabels[i][j].SetText(string.Empty);
+				}
 			}
-			foreach (Fleet fleet in otherFleets)
-			{
-				allFleets.Add(fleet);
-			}
-			showOtherFleets.Selected = true;
-			showOurFleets.Selected = true;
-
-			fleetIndex = 0;
-			shipIndex = 0;
-			selectedFleet = -1;
-			selectedShip = -1;
-			fleetSelected = null;
-
-			UpdateList();
-			UpdateLabels();*/
 		}
 
 		/*public void UpdateLabels()
