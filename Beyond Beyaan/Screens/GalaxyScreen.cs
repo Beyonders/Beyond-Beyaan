@@ -107,6 +107,7 @@ namespace Beyond_Beyaan.Screens
 			_shipDesignScreen.CloseWindow = CloseWindow;
 			_planetsView.CloseWindow = CloseWindow;
 			_planetsView.CenterToSystem = CenterToSystem;
+			_fleetListScreen.SelectFleet = SelectFleet;
 
 			_taskBar.ShowGameMenu = ShowInGameMenu;
 			_taskBar.ShowResearchScreen = ShowResearchScreen;
@@ -137,6 +138,12 @@ namespace Beyond_Beyaan.Screens
 			CloseWindow();
 		}
 
+		private void SelectFleet(Fleet fleet)
+		{
+			CloseWindow();
+			CenterScreen(fleet);
+		}
+
 		public void CenterScreen()
 		{
 			if (_gameMain.EmpireManager.CurrentEmpire != null && _gameMain.EmpireManager.CurrentEmpire.LastSelectedSystem != null)
@@ -145,6 +152,14 @@ namespace Beyond_Beyaan.Screens
 				_camera.CenterCamera(_gameMain.EmpireManager.CurrentEmpire.SelectedSystem.X, _gameMain.EmpireManager.CurrentEmpire.SelectedSystem.Y, _camera.ZoomDistance);
 				_systemView.LoadSystem();
 			}
+		}
+
+		public void CenterScreen(Fleet fleet)
+		{
+			_gameMain.EmpireManager.CurrentEmpire.SelectedFleetGroup = new FleetGroup(new List<Fleet> { fleet });
+			_gameMain.EmpireManager.CurrentEmpire.SelectedSystem = null;
+			_camera.CenterCamera((int)fleet.GalaxyX, (int)fleet.GalaxyY, _camera.ZoomDistance);
+			_fleetView.LoadFleetGroup(_gameMain.EmpireManager.CurrentEmpire.SelectedFleetGroup);
 		}
 
 		private void DrawETA(TravelNode node, bool isTentative)

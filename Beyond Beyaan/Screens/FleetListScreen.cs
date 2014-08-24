@@ -6,6 +6,7 @@ namespace Beyond_Beyaan.Screens
 	public class FleetListScreen : WindowInterface
 	{
 		public Action CloseWindow;
+		public Action<Fleet> SelectFleet;
 
 		private BBStretchButton[] _shipNames; //This includes both background image and label, as well as centering functionality
 		private BBLabel[] _statusLabels;
@@ -175,28 +176,47 @@ namespace Beyond_Beyaan.Screens
 
 		public override bool MouseHover(int x, int y, float frameDeltaTime)
 		{
-
+			for (int i = 0; i < _maxVisible; i++)
+			{
+				_planetBackgrounds[i].MouseHover(x, y, frameDeltaTime);
+			}
 			return false;
 		}
 
 		public override bool MouseDown(int x, int y)
 		{
-			bool result = base.MouseDown(x, y);
+			bool result = false;
+
+			for (int i = 0; i < _maxVisible; i++)
+			{
+				result = _planetBackgrounds[i].MouseDown(x, y) || result;
+			}
+
+			result = base.MouseDown(x, y) || result;
 
 			return result;
 		}
 
 		public override bool MouseUp(int x, int y)
 		{
-			bool result = base.MouseUp(x, y);
-			if (!result)
+			for (int i = 0; i < _maxVisible; i++)
+			{
+				if (_planetBackgrounds[i].MouseUp(x, y))
+				{
+					SelectFleet(_fleetManager.GetFleets()[i + _scrollBar.TopIndex]);
+					return true;
+				}
+			}
+
+			if (!base.MouseUp(x,y))
 			{
 				if (CloseWindow != null)
 				{
 					CloseWindow();
 				}
+				return true;
 			}
-			return result;
+			return false;
 		}
 
 		public void LoadScreen()
