@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using GorgonLibrary.InputDevices;
 
 namespace Beyond_Beyaan.Screens
 {
@@ -26,6 +27,9 @@ namespace Beyond_Beyaan.Screens
 		private int _x;
 		private int _y;
 		private FleetManager _fleetManager;
+
+		private FleetSpecsWindow _fleetSpecsWindow;
+		private bool _fleetSpecsShowing;
 
 		public bool Initialize(GameMain gameMain, out string reason)
 		{
@@ -130,6 +134,13 @@ namespace Beyond_Beyaan.Screens
 				return false;
 			}
 
+			_fleetSpecsWindow = new FleetSpecsWindow();
+			if (!_fleetSpecsWindow.Initialize(gameMain, "FleetList", out reason))
+			{
+				return false;
+			}
+			_fleetSpecsShowing = false;
+
 			reason = null;
 			return true;
 		}
@@ -172,26 +183,47 @@ namespace Beyond_Beyaan.Screens
 			_maintenanceLabel.Draw();
 			_maintenanceAmountLabel.Draw();
 			_viewSpecsButton.Draw();
+
+			if (_fleetSpecsShowing)
+			{
+				_fleetSpecsWindow.Draw();
+			}
 		}
 
 		public override bool MouseHover(int x, int y, float frameDeltaTime)
 		{
+			if (_fleetSpecsShowing)
+			{
+				return _fleetSpecsWindow.MouseHover(x, y, frameDeltaTime);
+			}
 			for (int i = 0; i < _maxVisible; i++)
 			{
 				_planetBackgrounds[i].MouseHover(x, y, frameDeltaTime);
 			}
+			for (int i = 0; i < 6; i++)
+			{
+				_scrapButtons[i].MouseHover(x, y, frameDeltaTime);
+			}
+			_viewSpecsButton.MouseHover(x, y, frameDeltaTime);
 			return false;
 		}
 
 		public override bool MouseDown(int x, int y)
 		{
+			if (_fleetSpecsShowing)
+			{
+				return _fleetSpecsWindow.MouseDown(x, y);
+			}
 			bool result = false;
-
 			for (int i = 0; i < _maxVisible; i++)
 			{
 				result = _planetBackgrounds[i].MouseDown(x, y) || result;
 			}
-
+			for (int i = 0; i < 6; i++)
+			{
+				result = _scrapButtons[i].MouseDown(x, y) || result;
+			}
+			result = _viewSpecsButton.MouseDown(x, y) || result;
 			result = base.MouseDown(x, y) || result;
 
 			return result;
@@ -199,6 +231,15 @@ namespace Beyond_Beyaan.Screens
 
 		public override bool MouseUp(int x, int y)
 		{
+			if (_fleetSpecsShowing)
+			{
+				if (!_fleetSpecsWindow.MouseUp(x, y))
+				{
+					_fleetSpecsShowing = false;
+					LoadScreen();
+				}
+				return true;
+			}
 			for (int i = 0; i < _maxVisible; i++)
 			{
 				if (_planetBackgrounds[i].MouseUp(x, y))
@@ -208,13 +249,41 @@ namespace Beyond_Beyaan.Screens
 				}
 			}
 
-			if (!base.MouseUp(x,y))
+			for (int i = 0; i < 6; i++)
+			{
+				if (_scrapButtons[i].MouseUp(x, y))
+				{
+					_gameMain.EmpireManager.CurrentEmpire.FleetManager.ObsoleteShipDesign(_gameMain.EmpireManager.CurrentEmpire.FleetManager.CurrentDesigns[i]);
+					LoadScreen();
+				}
+			}
+			if (_viewSpecsButton.MouseUp(x, y))
+			{
+				_fleetSpecsShowing = true;
+				_fleetSpecsWindow.LoadDesigns();
+			}
+
+			if (!base.MouseUp(x, y))
 			{
 				if (CloseWindow != null)
 				{
 					CloseWindow();
 				}
 				return true;
+			}
+			return false;
+		}
+
+		public override bool KeyDown(KeyboardInputEventArgs e)
+		{
+			if (e.Key == KeyboardKeys.Escape)
+			{
+				if (_fleetSpecsShowing)
+				{
+					_fleetSpecsShowing = false;
+					LoadScreen();
+					return true;
+				}
 			}
 			return false;
 		}
@@ -230,7 +299,15 @@ namespace Beyond_Beyaan.Screens
 			{
 				_shipNames[i].SetText(_fleetManager.CurrentDesigns[i].Name);
 				_shipNames[i].Enabled = true;
-				_scrapButtons[i].Active = true;
+				if (_fleetManager.CurrentDesigns.Count > 1)
+				{
+					_scrapButtons[i].Active = true;
+				}
+				else
+				{
+					//Only one ship design left
+					_scrapButtons[i].Active = false;
+				}
 			}
 			for (; i < 6; i++)
 			{

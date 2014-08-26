@@ -326,7 +326,7 @@ namespace Beyond_Beyaan.Screens
 			_selectionShowing = false;
 
 			_fleetSpecsWindow = new FleetSpecsWindow();
-			if (!_fleetSpecsWindow.Initialize(gameMain, out reason))
+			if (!_fleetSpecsWindow.Initialize(gameMain, "ShipDesign", out reason))
 			{
 				return false;
 			}

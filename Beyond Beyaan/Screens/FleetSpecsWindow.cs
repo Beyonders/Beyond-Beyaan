@@ -63,7 +63,7 @@ namespace Beyond_Beyaan.Screens
 
 		public Action ScrapAction;
 
-		public bool Initialize(GameMain gameMain, out string reason)
+		public bool Initialize(GameMain gameMain, string name, out string reason)
 		{
 			_x = (gameMain.ScreenWidth / 2) - 430;
 			_y = (gameMain.ScreenHeight / 2) - 300;
@@ -152,7 +152,7 @@ namespace Beyond_Beyaan.Screens
 				{
 					return false;
 				}
-				if (!_scrapButtons[i].SetToolTip("ScrapShipToolTip" + i, "Scrap Ship Design", gameMain.ScreenWidth, gameMain.ScreenHeight, gameMain.Random, out reason))
+				if (!_scrapButtons[i].SetToolTip(name + "ScrapShipToolTip" + i, "Scrap Ship Design", gameMain.ScreenWidth, gameMain.ScreenHeight, gameMain.Random, out reason))
 				{
 					return false;
 				}

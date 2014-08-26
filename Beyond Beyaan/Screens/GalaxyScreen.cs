@@ -107,6 +107,7 @@ namespace Beyond_Beyaan.Screens
 			_shipDesignScreen.CloseWindow = CloseWindow;
 			_planetsView.CloseWindow = CloseWindow;
 			_planetsView.CenterToSystem = CenterToSystem;
+			_fleetListScreen.CloseWindow = CloseWindow;
 			_fleetListScreen.SelectFleet = SelectFleet;
 
 			_taskBar.ShowGameMenu = ShowInGameMenu;
