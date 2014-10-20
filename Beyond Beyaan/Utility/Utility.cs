@@ -411,4 +411,35 @@ namespace Beyond_Beyaan
 			return base.GetHashCode();
 		}
 	}
+
+	public struct PointF
+	{
+		public float X;
+		public float Y;
+
+		public PointF(float x, float y)
+		{
+			X = x;
+			Y = y;
+		}
+
+		public static bool operator ==(PointF p1, PointF p2)
+		{
+			return p1.X == p2.X && p1.Y == p2.Y;
+		}
+
+		public static bool operator !=(PointF p1, PointF p2)
+		{
+			return p1.X != p2.X || p1.Y != p2.Y;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return base.Equals(obj);
+		}
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+	}
 }

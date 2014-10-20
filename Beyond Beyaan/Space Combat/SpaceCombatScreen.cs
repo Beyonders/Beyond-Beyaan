@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using Beyond_Beyaan.Data_Managers;
 using Beyond_Beyaan.Data_Modules;
+using Beyond_Beyaan.Screens;
 using GorgonLibrary.InputDevices;
 
-namespace Beyond_Beyaan.Screens
+namespace Beyond_Beyaan.Space_Combat
 {
-	/*class SpaceCombat : ScreenInterface
+	class SpaceCombat : ScreenInterface
 	{
-		const int COMBATSIZE = 200;
+		/*const int COMBATSIZE = 200;
 
 		//bool loaded;
 		GameMain _gameMain;
@@ -526,5 +529,411 @@ namespace Beyond_Beyaan.Screens
 				camera.CenterCamera(selectedShip.X, selectedShip.Y);
 			}*/
 	//	}
-	//}
+
+		private Hex[,] _hexes;
+		private Hex _activeHex;
+		private int _width;
+		private int _height;
+		private int _xOffset;
+		private int _yOffset;
+		private int _side;
+		private float _pixelWidth;
+		private float _pixelHeight;
+		private HexOrientation _orientation;
+		private Asteroid[] _asteroids;
+
+		private GameMain _gameMain;
+		private Camera _camera;
+
+		private class Asteroid //Only place where this'd actually be used
+		{
+			public float X { get; set; }
+			public float Y { get; set; }
+			public BBSprite Sprite { get; set; }
+			public Hex Hex { get; set; }
+		}
+
+		public bool Initialize(GameMain gameMain, out string reason)
+		{
+			_gameMain = gameMain;
+
+			_width = 9;
+			_height = 9;
+			_xOffset = 0;
+			_yOffset = 0;
+			_side = 100;
+			_orientation = HexOrientation.Flat;
+			_hexes = new Hex[_height, _width];
+
+			float h = Hex.CalculateH(_side); //Short side
+			float r = Hex.CalculateR(_side); //Long side
+
+			float hexWidth = 0;
+			float hexHeight = 0;
+			switch (_orientation)
+			{
+				case HexOrientation.Flat:
+					hexWidth = _side + h;
+					hexHeight = r + r;
+					_pixelWidth = (_width * hexWidth) + h;
+					_pixelHeight = (_height * hexHeight) + r;
+					break;
+				case HexOrientation.Pointy:
+					hexWidth = r + r;
+					hexHeight = _side + h;
+					_pixelWidth = (_width * hexWidth) + r;
+					_pixelHeight = (_height * hexHeight) + h;
+					break;
+			}
+
+			bool inTopRow = false;
+			//bool inBottomRow = false;
+			bool inLeftColumn = false;
+			//bool inRightColumn = false;
+			bool isTopLeft = false;
+			/*bool isTopRight = false;
+			bool isBotomLeft = false;
+			bool isBottomRight = false;*/
+
+			// i = y coordinate (rows), j = x coordinate (columns) of the hex tiles 2D plane
+			for (int i = 0; i < _height; i++)
+			{
+				for (int j = 0; j < _width; j++)
+				{
+					// Set position booleans
+					#region Position Booleans
+					if (i == 0)
+					{
+						inTopRow = true;
+					}
+					else
+					{
+						inTopRow = false;
+					}
+
+					/*if (i == _height - 1)
+					{
+						inBottomRow = true;
+					}
+					else
+					{
+						inBottomRow = false;
+					}*/
+
+					if (j == 0)
+					{
+						inLeftColumn = true;
+					}
+					else
+					{
+						inLeftColumn = false;
+					}
+
+					/*if (j == _width - 1)
+					{
+						inRightColumn = true;
+					}
+					else
+					{
+						inRightColumn = false;
+					}*/
+
+					if (inTopRow && inLeftColumn)
+					{
+						isTopLeft = true;
+					}
+					else
+					{
+						isTopLeft = false;
+					}
+
+					/*if (inTopRow && inRightColumn)
+					{
+						isTopRight = true;
+					}
+					else
+					{
+						isTopRight = false;
+					}
+
+					if (inBottomRow && inLeftColumn)
+					{
+						isBotomLeft = true;
+					}
+					else
+					{
+						isBotomLeft = false;
+					}
+
+					if (inBottomRow && inRightColumn)
+					{
+						isBottomRight = true;
+					}
+					else
+					{
+						isBottomRight = false;
+					}*/
+					#endregion
+
+					//
+					// Calculate Hex positions
+					//
+					if (isTopLeft)
+					{
+						//First hex
+						switch (_orientation)
+						{
+							case HexOrientation.Flat:
+								_hexes[0, 0] = new Hex(0 + h + _xOffset, 0 + _yOffset, _side, _orientation);
+								break;
+							case HexOrientation.Pointy:
+								_hexes[0, 0] = new Hex(0 + r + _xOffset, 0 + _yOffset, _side, _orientation);
+								break;
+						}
+					}
+					else
+					{
+						switch (_orientation)
+						{
+							case HexOrientation.Flat:
+								if (inLeftColumn)
+								{
+									// Calculate from hex above
+									_hexes[i, j] = new Hex(_hexes[i - 1, j].Points[(int)FlatVertice.BottomLeft], _side, _orientation);
+								}
+								else
+								{
+									// Calculate from Hex to the left and need to stagger the columns
+									if (j % 2 == 0)
+									{
+										// Calculate from Hex to left's Upper Right Vertice plus h and R offset 
+										float x = _hexes[i, j - 1].Points[(int)FlatVertice.UpperRight].X;
+										float y = _hexes[i, j - 1].Points[(int)FlatVertice.UpperRight].Y;
+										x += h;
+										y -= r;
+										_hexes[i, j] = new Hex(x, y, _side, _orientation);
+									}
+									else
+									{
+										// Calculate from Hex to left's Middle Right Vertice
+										_hexes[i, j] = new Hex(_hexes[i, j - 1].Points[(int)FlatVertice.MiddleRight], _side, _orientation);
+									}
+								}
+								break;
+							case HexOrientation.Pointy:
+								if (inLeftColumn)
+								{
+									// Calculate from hex above and need to stagger the rows
+									if (i % 2 == 0)
+									{
+										_hexes[i, j] = new Hex(_hexes[i - 1, j].Points[(int)PointyVertice.BottomLeft], _side, _orientation);
+									}
+									else
+									{
+										_hexes[i, j] = new Hex(_hexes[i - 1, j].Points[(int)PointyVertice.BottomRight], _side, _orientation);
+									}
+								}
+								else
+								{
+									// Calculate from Hex to the left
+									float x = _hexes[i, j - 1].Points[(int)PointyVertice.UpperRight].X;
+									float y = _hexes[i, j - 1].Points[(int)PointyVertice.UpperRight].Y;
+									x += r;
+									y -= h;
+									_hexes[i, j] = new Hex(x, y, _side, _orientation);
+								}
+								break;
+						}
+					}
+				}
+			}
+
+			#region UI initialization
+			_camera = new Camera((int)((_height - 2) * (2 * Hex.CalculateH(_side) + _side)), (int)((_width + 1) * (2 * Hex.CalculateR(_side))), _gameMain.ScreenWidth, _gameMain.ScreenHeight);
+			#endregion
+
+			reason = null;
+			return true;
+		}
+
+		public void DrawScreen()
+		{
+			var scale = _camera.ZoomDistance;
+			var camX = _camera.CameraX;
+			var camY = _camera.CameraY;
+			var target = GorgonLibrary.Gorgon.CurrentRenderTarget;
+			for (int i = 0; i < _height; i++)
+			{
+				for (int j = 0; j < _width; j++)
+				{
+					for (int p = 0; p < 6; p++)
+					{
+						PointF point1;
+						PointF point2;
+						if (p < 5)
+						{
+							point1 = _hexes[i, j].Points[p];
+							point2 = _hexes[i, j].Points[p + 1];
+						}
+						else
+						{
+							point1 = _hexes[i, j].Points[p];
+							point2 = _hexes[i, j].Points[0];
+						}
+						var width = (point2.X - point1.X) * scale;
+						var height = (point2.Y - point1.Y) * scale;
+						target.Line((point1.X - camX) * scale, (point1.Y - camY) * scale, width, height, Color.LightGray, 2, 2);
+					}
+				}
+			}
+			if (_activeHex != null)
+			{
+				for (int p = 0; p < 6; p++)
+				{
+					PointF point1;
+					PointF point2;
+					if (p < 5)
+					{
+						point1 = _activeHex.Points[p];
+						point2 = _activeHex.Points[p + 1];
+					}
+					else
+					{
+						point1 = _activeHex.Points[p];
+						point2 = _activeHex.Points[0];
+					}
+					var width = (point2.X - point1.X) * scale;
+					var height = (point2.Y - point1.Y) * scale;
+					target.Line((point1.X - camX) * scale, (point1.Y - camY) * scale, width, height, Color.LawnGreen, 2, 2);
+				}
+			}
+			if (_asteroids != null)
+			{
+				for (int i = 0; i < _asteroids.Length; i++)
+				{
+					var ast = _asteroids[i];
+					var sprite = ast.Sprite;
+					if (ast.Hex == _activeHex)
+					{
+						sprite.Draw((ast.X - camX) * scale, (ast.Y - camY) * scale, scale, scale, Color.LawnGreen);
+					}
+					else
+					{
+						sprite.Draw((ast.X - camX) * scale, (ast.Y - camY) * scale, scale, scale);
+					}
+				}
+			}
+		}
+
+		public void Update(int x, int y, float frameDeltaTime)
+		{
+			_camera.HandleUpdate(frameDeltaTime);
+		}
+
+		public void MouseDown(int x, int y, int whichButton)
+		{
+			
+		}
+
+		public void MouseUp(int x, int y, int whichButton)
+		{
+			Point pointClicked = new Point();
+
+			pointClicked.X = (int)((x / _camera.ZoomDistance) + _camera.CameraX);
+			pointClicked.Y = (int)((y / _camera.ZoomDistance) + _camera.CameraY);
+
+			if (whichButton == 1)
+			{
+				//Left click, select the hex or do action
+				_activeHex = FindHexMouseClick(pointClicked.X, pointClicked.Y);
+			}
+			else if (whichButton == 2)
+			{
+				//Right click, center the camera
+				_camera.ScrollToPosition(pointClicked.X, pointClicked.Y);
+			}
+		}
+
+		public void MouseScroll(int direction, int x, int y)
+		{
+			_camera.MouseWheel(direction, x, y);
+		}
+
+		public void KeyDown(KeyboardInputEventArgs e)
+		{
+			
+		}
+
+		private Hex FindHexMouseClick(int x, int y)
+		{
+			Hex target = null;
+
+			for (int i = 0; i < _hexes.GetLength(0); i++)
+			{
+				for (int j = 0; j < _hexes.GetLength(1); j++)
+				{
+					if (Hex.InsidePolygon(_hexes[i, j].Points, 6, new PointF(x, y)))
+					{
+						target = _hexes[i, j];
+						break;
+					}
+				}
+
+				if (target != null)
+				{
+					break;
+				}
+			}
+
+			return target;
+		}
+
+		public void LoadSystem(StarSystem system)
+		{
+			int numOfAsteroidHexes = 0;
+			//Takes in the system's asteroid density and planet info, and generates the battlefield
+			switch (system.Planets[0].AsteroidDensity)
+			{
+				case PLANET_ASTEROID_DENSITY.LOW:
+					numOfAsteroidHexes = _gameMain.Random.Next(1, 6); //1 to 5 hexes
+					break;
+				case PLANET_ASTEROID_DENSITY.HIGH:
+					numOfAsteroidHexes = _gameMain.Random.Next(3, 8); //3 to 7 hexes
+					break;
+			}
+			if (numOfAsteroidHexes > 0)
+			{
+				_asteroids = new Asteroid[numOfAsteroidHexes];
+				for (int i = 0; i < numOfAsteroidHexes; i++)
+				{
+					bool placed = false;
+					do
+					{
+						int x = _gameMain.Random.Next(2, 7);
+						int y = _gameMain.Random.Next(0, 9);
+						if (!CheckIfHexContainsAsteroid(_hexes[y, x]))
+						{
+							var hex = _hexes[y, x];
+							placed = true;
+							Asteroid ast = new Asteroid();
+							ast.X = hex.CenterX;
+							ast.Y = hex.CenterY;
+							ast.Hex = hex;
+							ast.Sprite = SpriteManager.GetSprite("LargeAsteroid" + _gameMain.Random.Next(1, 4), _gameMain.Random);
+							_asteroids[i] = ast;
+						}
+					} while (!placed);
+				}
+			}
+			else
+			{
+				_asteroids = null;
+			}
+		}
+
+		public bool CheckIfHexContainsAsteroid(Hex hexToCheck)
+		{
+			return _asteroids.Any(asteroid => asteroid != null && asteroid.Hex == hexToCheck);
+		}
+	}
 }

@@ -106,6 +106,7 @@
     <Compile Include="Screens\SituationReport.cs" />
     <Compile Include="Screens\SystemView.cs" />
     <Compile Include="Screens\WindowInterface.cs" />
+    <Compile Include="Space Combat\Hex.cs" />
     <Compile Include="Utility\GameConfiguration.cs" />
     <Compile Include="Utility\NameGenerator.cs" />
     <Compile Include="Data Modules\Planet.cs" />
@@ -121,7 +122,7 @@
     <Compile Include="Screens\ResearchScreen.cs" />
     <Compile Include="Screens\ScreenInterface.cs" />
     <Compile Include="Screens\NewGame.cs" />
-    <Compile Include="Screens\SpaceCombat.cs" />
+    <Compile Include="Space Combat\SpaceCombatScreen.cs" />
     <Compile Include="Data Modules\Ship.cs" />
     <Compile Include="Data Modules\StarSystem.cs" />
     <Compile Include="Screens\TaskBar.cs" />
@@ -155,6 +156,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

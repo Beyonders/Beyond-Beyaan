@@ -190,6 +190,42 @@
   <Sprite name="UndevelopedIcon" file="planets.png">
     <Frame x="240" y="80" width="40" height="40" />
   </Sprite>
+  <Sprite name="TinyAsteroid1" file="Asteroids.png">
+    <Frame x="0" y="0" width="32" height="32" axisX="16" axisY="16" />
+  </Sprite>
+  <Sprite name="TinyAsteroid2" file="Asteroids.png">
+    <Frame x="32" y="0" width="32" height="32" axisX="16" axisY="16" />
+  </Sprite>
+  <Sprite name="TinyAsteroid3" file="Asteroids.png">
+    <Frame x="64" y="0" width="32" height="32" axisX="16" axisY="16" />
+  </Sprite>
+  <Sprite name="SmallAsteroid1" file="Asteroids.png">
+    <Frame x="0" y="32" width="64" height="64" axisX="32" axisY="32" />
+  </Sprite>
+  <Sprite name="SmallAsteroid2" file="Asteroids.png">
+    <Frame x="64" y="32" width="64" height="64" axisX="32" axisY="32" />
+  </Sprite>
+  <Sprite name="SmallAsteroid3" file="Asteroids.png">
+    <Frame x="128" y="32" width="64" height="64" axisX="32" axisY="32" />
+  </Sprite>
+  <Sprite name="MediumAsteroid1" file="Asteroids.png">
+    <Frame x="0" y="96" width="96" height="96" axisX="48" axisY="48" />
+  </Sprite>
+  <Sprite name="MediumAsteroid2" file="Asteroids.png">
+    <Frame x="96" y="96" width="96" height="96" axisX="48" axisY="48" />
+  </Sprite>
+  <Sprite name="MediumAsteroid3" file="Asteroids.png">
+    <Frame x="192" y="96" width="96" height="96" axisX="48" axisY="48" />
+  </Sprite>
+  <Sprite name="LargeAsteroid1" file="Asteroids.png">
+    <Frame x="0" y="192" width="128" height="128" axisX="64" axisY="64" />
+  </Sprite>
+  <Sprite name="LargeAsteroid2" file="Asteroids.png">
+    <Frame x="128" y="192" width="128" height="128" axisX="64" axisY="64" />
+  </Sprite>
+  <Sprite name="LargeAsteroid3" file="Asteroids.png">
+    <Frame x="256" y="192" width="128" height="128" axisX="64" axisY="64" />
+  </Sprite>
 
   <Sprite name="RandomRace" file="random.png">
     <Frame x="0" y="0" width="128" height="128" />
